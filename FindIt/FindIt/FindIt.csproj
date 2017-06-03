@@ -299,6 +299,7 @@
     <Compile Include="ViewModels\AddViewModels\AddAchievementViewModel.cs" />
     <Compile Include="ViewModels\AddViewModels\AddQuestionViewModel.cs" />
     <Compile Include="ViewModels\GameAnswersViewModel.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

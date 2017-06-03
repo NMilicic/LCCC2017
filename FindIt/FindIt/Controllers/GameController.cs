@@ -9,6 +9,8 @@ using System.Web.Http;
 using FindIt.Models;
 using FindIt.Repositories;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
@@ -18,13 +20,24 @@ namespace FindIt.Controllers
     {
         
         private readonly IGameRepository _gameRepository = new GameRepository();
+        private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
 
         [HttpGet]
         [Route(Name = "new")]
-        public async Task<Games> Get()
+        public async Task<Games> StartNewGame()
         {
             return await _gameRepository.CreateNewGame();
         }
+
+        [HttpPost]
+        [Route(Name = "submit")]
+        public double SubmitGameForEvaluation([FromBody] GameViewModel model)
+        {
+            var playedGame = _playedGameRepository.CalculateScore(model.GameId, model.Answers, User.Identity.GetUserId());
+            return playedGame.Score;
+        }
+
+
 
     }
 }
