@@ -1,0 +1,872 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="guessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Achievements">
+          <Key>
+            <PropertyRef Name="AchievementId" />
+          </Key>
+          <Property Name="AchievementId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageUri" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question1Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question2Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question3Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question4Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question5Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question6Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question7Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question8Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question9Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question10Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayedGames">
+          <Key>
+            <PropertyRef Name="PlayedGameId" />
+          </Key>
+          <Property Name="PlayedGameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DatePlayed" Type="date" Nullable="false" />
+          <Property Name="Score" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageUri" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Info" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstHint" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SecondHint" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAchievements">
+          <Key>
+            <PropertyRef Name="UserAchievementId" />
+          </Key>
+          <Property Name="UserAchievementId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AchievementId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Achieved" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserInfoId" />
+          </Key>
+          <Property Name="UserInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Coins" Type="int" Nullable="false" />
+          <Property Name="TotalScore" Type="float" Nullable="false" />
+          <Property Name="HighScore" Type="float" Nullable="false" />
+          <Property Name="AvatarUri" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSkills">
+          <Key>
+            <PropertyRef Name="UserSkillId" />
+          </Key>
+          <Property Name="UserSkillId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SkillId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Activated" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Games_Questions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions1">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question10Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions2">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions3">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions4">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions5">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions6">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions7">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question7Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions8">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question8Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions9">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question9Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="PlayedGames" Type="Self.PlayedGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="PlayedGames">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedGames_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="PlayedGames" Type="Self.PlayedGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="PlayedGames">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAchievements_Achievements">
+          <End Role="Achievements" Type="Self.Achievements" Multiplicity="1" />
+          <End Role="UserAchievements" Type="Self.UserAchievements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Achievements">
+              <PropertyRef Name="AchievementId" />
+            </Principal>
+            <Dependent Role="UserAchievements">
+              <PropertyRef Name="AchievementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAchievements_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserAchievements" Type="Self.UserAchievements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="UserAchievements">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="UserSkills" Type="Self.UserSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="UserSkills">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkills_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserSkills" Type="Self.UserSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="UserSkills">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="guessDBModelStoreContainer">
+          <EntitySet Name="Achievements" EntityType="Self.Achievements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayedGames" EntityType="Self.PlayedGames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAchievements" EntityType="Self.UserAchievements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSkills" EntityType="Self.UserSkills" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Games_Questions" Association="Self.FK_Games_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions1" Association="Self.FK_Games_Questions1">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions2" Association="Self.FK_Games_Questions2">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions3" Association="Self.FK_Games_Questions3">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions4" Association="Self.FK_Games_Questions4">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions5" Association="Self.FK_Games_Questions5">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions6" Association="Self.FK_Games_Questions6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions7" Association="Self.FK_Games_Questions7">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions8" Association="Self.FK_Games_Questions8">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions9" Association="Self.FK_Games_Questions9">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedGames_Games" Association="Self.FK_PlayedGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="PlayedGames" EntitySet="PlayedGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedGames_UserInfo" Association="Self.FK_PlayedGames_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="PlayedGames" EntitySet="PlayedGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAchievements_Achievements" Association="Self.FK_UserAchievements_Achievements">
+            <End Role="Achievements" EntitySet="Achievements" />
+            <End Role="UserAchievements" EntitySet="UserAchievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAchievements_UserInfo" Association="Self.FK_UserAchievements_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserAchievements" EntitySet="UserAchievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkills_Skills" Association="Self.FK_UserSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="UserSkills" EntitySet="UserSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkills_UserInfo" Association="Self.FK_UserSkills_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserSkills" EntitySet="UserSkills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="guessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Achievements">
+          <Key>
+            <PropertyRef Name="AchievementId" />
+          </Key>
+          <Property Name="AchievementId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserAchievements" Relationship="Self.FK_UserAchievements_Achievements" FromRole="Achievements" ToRole="UserAchievements" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Guid" Nullable="false" />
+          <Property Name="Question1Id" Type="Guid" Nullable="false" />
+          <Property Name="Question2Id" Type="Guid" Nullable="false" />
+          <Property Name="Question3Id" Type="Guid" Nullable="false" />
+          <Property Name="Question4Id" Type="Guid" Nullable="false" />
+          <Property Name="Question5Id" Type="Guid" Nullable="false" />
+          <Property Name="Question6Id" Type="Guid" Nullable="false" />
+          <Property Name="Question7Id" Type="Guid" Nullable="false" />
+          <Property Name="Question8Id" Type="Guid" Nullable="false" />
+          <Property Name="Question9Id" Type="Guid" Nullable="false" />
+          <Property Name="Question10Id" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Games_Questions" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions1" Relationship="Self.FK_Games_Questions1" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions2" Relationship="Self.FK_Games_Questions2" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions3" Relationship="Self.FK_Games_Questions3" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions4" Relationship="Self.FK_Games_Questions4" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions5" Relationship="Self.FK_Games_Questions5" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions6" Relationship="Self.FK_Games_Questions6" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions7" Relationship="Self.FK_Games_Questions7" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions8" Relationship="Self.FK_Games_Questions8" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="Questions9" Relationship="Self.FK_Games_Questions9" FromRole="Games" ToRole="Questions" />
+          <NavigationProperty Name="PlayedGames" Relationship="Self.FK_PlayedGames_Games" FromRole="Games" ToRole="PlayedGames" />
+        </EntityType>
+        <EntityType Name="PlayedGames">
+          <Key>
+            <PropertyRef Name="PlayedGameId" />
+          </Key>
+          <Property Name="PlayedGameId" Type="Guid" Nullable="false" />
+          <Property Name="GameId" Type="Guid" Nullable="false" />
+          <Property Name="UserInfoId" Type="Guid" Nullable="false" />
+          <Property Name="DatePlayed" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Score" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_PlayedGames_Games" FromRole="PlayedGames" ToRole="Games" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_PlayedGames_UserInfo" FromRole="PlayedGames" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstHint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondHint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Questions" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games1" Relationship="Self.FK_Games_Questions1" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games2" Relationship="Self.FK_Games_Questions2" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games3" Relationship="Self.FK_Games_Questions3" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games4" Relationship="Self.FK_Games_Questions4" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games5" Relationship="Self.FK_Games_Questions5" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games6" Relationship="Self.FK_Games_Questions6" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games7" Relationship="Self.FK_Games_Questions7" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games8" Relationship="Self.FK_Games_Questions8" FromRole="Questions" ToRole="Games" />
+          <NavigationProperty Name="Games9" Relationship="Self.FK_Games_Questions9" FromRole="Questions" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserSkills" Relationship="Self.FK_UserSkills_Skills" FromRole="Skills" ToRole="UserSkills" />
+        </EntityType>
+        <EntityType Name="UserAchievements">
+          <Key>
+            <PropertyRef Name="UserAchievementId" />
+          </Key>
+          <Property Name="UserAchievementId" Type="Guid" Nullable="false" />
+          <Property Name="AchievementId" Type="Guid" Nullable="false" />
+          <Property Name="UserInfoId" Type="Guid" Nullable="false" />
+          <Property Name="Achieved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Achievements" Relationship="Self.FK_UserAchievements_Achievements" FromRole="UserAchievements" ToRole="Achievements" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserAchievements_UserInfo" FromRole="UserAchievements" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserInfoId" />
+          </Key>
+          <Property Name="UserInfoId" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Coins" Type="Int32" Nullable="false" />
+          <Property Name="TotalScore" Type="Double" Nullable="false" />
+          <Property Name="HighScore" Type="Double" Nullable="false" />
+          <Property Name="AvatarUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PlayedGames" Relationship="Self.FK_PlayedGames_UserInfo" FromRole="UserInfo" ToRole="PlayedGames" />
+          <NavigationProperty Name="UserAchievements" Relationship="Self.FK_UserAchievements_UserInfo" FromRole="UserInfo" ToRole="UserAchievements" />
+          <NavigationProperty Name="UserSkills" Relationship="Self.FK_UserSkills_UserInfo" FromRole="UserInfo" ToRole="UserSkills" />
+        </EntityType>
+        <EntityType Name="UserSkills">
+          <Key>
+            <PropertyRef Name="UserSkillId" />
+          </Key>
+          <Property Name="UserSkillId" Type="Guid" Nullable="false" />
+          <Property Name="UserInfoId" Type="Guid" Nullable="false" />
+          <Property Name="SkillId" Type="Guid" Nullable="false" />
+          <Property Name="Activated" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_UserSkills_Skills" FromRole="UserSkills" ToRole="Skills" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserSkills_UserInfo" FromRole="UserSkills" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_UserAchievements_Achievements">
+          <End Role="Achievements" Type="Self.Achievements" Multiplicity="1" />
+          <End Role="UserAchievements" Type="Self.UserAchievements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Achievements">
+              <PropertyRef Name="AchievementId" />
+            </Principal>
+            <Dependent Role="UserAchievements">
+              <PropertyRef Name="AchievementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions1">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question10Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions2">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions3">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions4">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions5">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions6">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions7">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question7Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions8">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question8Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Questions9">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Question9Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="PlayedGames" Type="Self.PlayedGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="PlayedGames">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayedGames_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="PlayedGames" Type="Self.PlayedGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="PlayedGames">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="UserSkills" Type="Self.UserSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="UserSkills">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAchievements_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserAchievements" Type="Self.UserAchievements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="UserAchievements">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkills_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserSkills" Type="Self.UserSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="UserSkills">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="guessDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Achievements" EntityType="Self.Achievements" />
+          <EntitySet Name="Games" EntityType="Self.Games" />
+          <EntitySet Name="PlayedGames" EntityType="Self.PlayedGames" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" />
+          <EntitySet Name="UserAchievements" EntityType="Self.UserAchievements" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+          <EntitySet Name="UserSkills" EntityType="Self.UserSkills" />
+          <AssociationSet Name="FK_UserAchievements_Achievements" Association="Self.FK_UserAchievements_Achievements">
+            <End Role="Achievements" EntitySet="Achievements" />
+            <End Role="UserAchievements" EntitySet="UserAchievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions" Association="Self.FK_Games_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions1" Association="Self.FK_Games_Questions1">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions2" Association="Self.FK_Games_Questions2">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions3" Association="Self.FK_Games_Questions3">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions4" Association="Self.FK_Games_Questions4">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions5" Association="Self.FK_Games_Questions5">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions6" Association="Self.FK_Games_Questions6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions7" Association="Self.FK_Games_Questions7">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions8" Association="Self.FK_Games_Questions8">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Questions9" Association="Self.FK_Games_Questions9">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedGames_Games" Association="Self.FK_PlayedGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="PlayedGames" EntitySet="PlayedGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayedGames_UserInfo" Association="Self.FK_PlayedGames_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="PlayedGames" EntitySet="PlayedGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkills_Skills" Association="Self.FK_UserSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="UserSkills" EntitySet="UserSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAchievements_UserInfo" Association="Self.FK_UserAchievements_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserAchievements" EntitySet="UserAchievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkills_UserInfo" Association="Self.FK_UserSkills_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserSkills" EntitySet="UserSkills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="guessDBModelStoreContainer" CdmEntityContainer="guessDBEntities">
+          <EntitySetMapping Name="Achievements">
+            <EntityTypeMapping TypeName="guessDBModel.Achievements">
+              <MappingFragment StoreEntitySet="Achievements">
+                <ScalarProperty Name="AchievementId" ColumnName="AchievementId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageUri" ColumnName="ImageUri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="guessDBModel.Games">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="Question1Id" ColumnName="Question1Id" />
+                <ScalarProperty Name="Question2Id" ColumnName="Question2Id" />
+                <ScalarProperty Name="Question3Id" ColumnName="Question3Id" />
+                <ScalarProperty Name="Question4Id" ColumnName="Question4Id" />
+                <ScalarProperty Name="Question5Id" ColumnName="Question5Id" />
+                <ScalarProperty Name="Question6Id" ColumnName="Question6Id" />
+                <ScalarProperty Name="Question7Id" ColumnName="Question7Id" />
+                <ScalarProperty Name="Question8Id" ColumnName="Question8Id" />
+                <ScalarProperty Name="Question9Id" ColumnName="Question9Id" />
+                <ScalarProperty Name="Question10Id" ColumnName="Question10Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayedGames">
+            <EntityTypeMapping TypeName="guessDBModel.PlayedGames">
+              <MappingFragment StoreEntitySet="PlayedGames">
+                <ScalarProperty Name="PlayedGameId" ColumnName="PlayedGameId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+                <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="guessDBModel.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageUri" ColumnName="ImageUri" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="FirstHint" ColumnName="FirstHint" />
+                <ScalarProperty Name="SecondHint" ColumnName="SecondHint" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="guessDBModel.Skills">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAchievements">
+            <EntityTypeMapping TypeName="guessDBModel.UserAchievements">
+              <MappingFragment StoreEntitySet="UserAchievements">
+                <ScalarProperty Name="UserAchievementId" ColumnName="UserAchievementId" />
+                <ScalarProperty Name="AchievementId" ColumnName="AchievementId" />
+                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+                <ScalarProperty Name="Achieved" ColumnName="Achieved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="guessDBModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Coins" ColumnName="Coins" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="HighScore" ColumnName="HighScore" />
+                <ScalarProperty Name="AvatarUri" ColumnName="AvatarUri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSkills">
+            <EntityTypeMapping TypeName="guessDBModel.UserSkills">
+              <MappingFragment StoreEntitySet="UserSkills">
+                <ScalarProperty Name="UserSkillId" ColumnName="UserSkillId" />
+                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="Activated" ColumnName="Activated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
