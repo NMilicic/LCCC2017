@@ -12,6 +12,7 @@ namespace FindIt.Repositories
     {
 
         private readonly IGameRepository _gameRepository = new GameRepository();
+        private readonly IUserInfoRepository _userInfoRepository = new UserInfoRepository();
         public const int QuestionPoints = 1000;
 
         public PlayedGames CalculateScore(string gameId, GameAnswersViewModel answers, string userId)
@@ -28,6 +29,16 @@ namespace FindIt.Repositories
             };
 
             Insert(playedGame);
+
+            var user = _userInfoRepository.GetById(Guid.Parse(userId));
+            user.TotalScore += playedGame.Score;
+
+            if (user.HighScore < playedGame.Score)
+            {
+                user.HighScore = playedGame.Score;
+            }
+
+            _userInfoRepository.Update(user);
 
             return playedGame;
         }
