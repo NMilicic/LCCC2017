@@ -278,9 +278,11 @@
     <Compile Include="Repositories\AchievementRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAchievementRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserAchievementsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserInfoRepository.cs" />
+    <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\UserInfoAchievementsRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
