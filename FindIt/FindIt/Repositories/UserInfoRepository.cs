@@ -12,6 +12,7 @@ namespace FindIt.Repositories
     {
    
         private readonly IUserAchievementsRepository _userAchievementsRepository = new UserInfoAchievementsRepository();
+        private readonly IUserSkillRepository _userSkillRepository = new UserSkillRepository();
 
         public async Task CreateUserInfoFromUser(string identityId, string identityUsername)
         {
@@ -25,8 +26,10 @@ namespace FindIt.Repositories
             Insert(userInfo);
 
             var achievements = await (new AchievementRepository()).GetAll();
+            var skills = await (new SkillRepository()).GetAll();
 
             _userAchievementsRepository.AddAchievementsToNewUser(userInfo, achievements);
+            _userSkillRepository.AddSkillsToNewUser(userInfo, skills);
         }
 
         public async Task<IEnumerable<Achievements>> GetEarnedAchievements(string userId)

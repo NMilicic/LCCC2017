@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AchievementsController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -258,6 +259,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ModelExtension\Achievements.cs" />
     <Compile Include="Models\ModelExtension\Questions.cs" />
+    <Compile Include="Models\ModelExtension\Skills.cs" />
     <Compile Include="Models\PlayedGames.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -295,10 +297,12 @@
     <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\UserInfoAchievementsRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
+    <Compile Include="Repositories\UserSkillRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddViewModels\AddAchievementViewModel.cs" />
     <Compile Include="ViewModels\AddViewModels\AddQuestionViewModel.cs" />
+    <Compile Include="ViewModels\AddViewModels\AddSkillViewModel.cs" />
     <Compile Include="ViewModels\GameAnswersViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
   </ItemGroup>

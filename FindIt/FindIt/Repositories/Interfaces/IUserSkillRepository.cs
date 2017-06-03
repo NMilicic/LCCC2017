@@ -9,5 +9,7 @@ namespace FindIt.Repositories.Interfaces
 {
     public interface IUserSkillRepository : IRepository<UserSkills, Guid>
     {
+        void AddNewSkillToUsers(Skills skill, IEnumerable<UserInfo> users);
+        void AddSkillsToNewUser(UserInfo user, IEnumerable<Skills> skills);
     }
 }
