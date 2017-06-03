@@ -23,14 +23,14 @@ namespace FindIt.Controllers
         private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
 
         [HttpGet]
-        [Route(Name = "new")]
+        [Route("newgame")]
         public async Task<Games> StartNewGame()
         {
             return await _gameRepository.CreateNewGame();
         }
 
         [HttpPost]
-        [Route(Name = "submit")]
+        [Route("submitgame")]
         public double SubmitGameForEvaluation([FromBody] GameViewModel model)
         {
             var playedGame = _playedGameRepository.CalculateScore(model.GameId, model.Answers, User.Identity.GetUserId());
