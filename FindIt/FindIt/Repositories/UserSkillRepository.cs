@@ -11,12 +11,38 @@ namespace FindIt.Repositories
     {
         public void AddNewSkillToUsers(Skills skill, IEnumerable<UserInfo> users)
         {
-            throw new NotImplementedException();
+            var userSkills = new List<UserSkills>();
+
+            foreach (var user in users)
+            {
+                userSkills.Add(new UserSkills()
+                {
+                    Activated = false,
+                    SkillId = skill.SkillId,
+                    UserInfoId = user.UserInfoId,
+                    UserSkillId = Guid.NewGuid()
+                });
+            }
+
+            BatchInsert(userSkills);
         }
 
         public void AddSkillsToNewUser(UserInfo user, IEnumerable<Skills> skills)
         {
-            throw new NotImplementedException();
+            var userSkills = new List<UserSkills>();
+
+            foreach (var skill in skills)
+            {
+                userSkills.Add(new UserSkills()
+                {
+                    Activated = false,
+                    SkillId = skill.SkillId,
+                    UserInfoId = user.UserInfoId,
+                    UserSkillId = Guid.NewGuid()
+                });
+            }
+
+            BatchInsert(userSkills);
         }
     }
 }
