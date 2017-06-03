@@ -9,6 +9,7 @@ using System.Web.Routing;
 using FindIt.Models;
 using FindIt.Repositories;
 using FindIt.Repositories.Interfaces;
+using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
@@ -32,9 +33,9 @@ namespace FindIt.Controllers
 
         [HttpGet]
         [Route(Name = "earnedachievements")]
-        public async Task<IEnumerable<Achievements>> GetEarnedAchievements(string id)
+        public async Task<IEnumerable<Achievements>> GetEarnedAchievements()
         {
-            return await _userInfoRepository.GetEarnedAchievements(id);
+            return await _userInfoRepository.GetEarnedAchievements(User.Identity.GetUserId());
         }
 
         // PUT api/<controller>/5
