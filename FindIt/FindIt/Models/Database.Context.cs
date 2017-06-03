@@ -13,10 +13,10 @@ namespace FindIt.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class guessDBEntities : DbContext
+    public partial class GuessDBEntities : DbContext
     {
-        public guessDBEntities()
-            : base("name=guessDBEntities")
+        public GuessDBEntities()
+            : base("name=GuessDBEntities")
         {
         }
     

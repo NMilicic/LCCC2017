@@ -672,7 +672,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="guessDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GuessDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Achievements" EntityType="Self.Achievements" />
           <EntitySet Name="Games" EntityType="Self.Games" />
           <EntitySet Name="PlayedGames" EntityType="Self.PlayedGames" />
@@ -751,7 +751,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="guessDBModelStoreContainer" CdmEntityContainer="guessDBEntities">
+        <EntityContainerMapping StorageEntityContainer="guessDBModelStoreContainer" CdmEntityContainer="GuessDBEntities">
           <EntitySetMapping Name="Achievements">
             <EntityTypeMapping TypeName="guessDBModel.Achievements">
               <MappingFragment StoreEntitySet="Achievements">
