@@ -14,7 +14,7 @@ namespace FindIt.Controllers
 {
 
     [RoutePrefix("api/achievements")]
-    public class ValuesController : ApiController
+    public class AchievementsController : ApiController
     {
         private readonly IAchievementRepository _achievementRepository = new AchievementRepository();
 

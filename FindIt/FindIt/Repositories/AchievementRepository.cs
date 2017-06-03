@@ -10,9 +10,14 @@ namespace FindIt.Repositories
 {
     public class AchievementRepository : BaseRepository<Achievements, Guid>, IAchievementRepository
     {
+        private readonly UserInfoAchievementsRepository _userAchievements = new UserInfoAchievementsRepository();
+
         public void Insert(AddAchievementViewModel model)
         {
-            Insert(new Achievements(model));
+            var achievement = new Achievements(model);
+            Insert(achievement);
+
+            _userAchievements.AddNewAchievementToUsers(achievement);
         }
     }
 }

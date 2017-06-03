@@ -15,6 +15,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using FindIt.Models;
 using FindIt.Providers;
+using FindIt.Repositories;
 using FindIt.Results;
 
 namespace FindIt.Controllers
@@ -336,6 +337,9 @@ namespace FindIt.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            var userInfoRepo = new UserInfoRepository();
+            await userInfoRepo.CreateUserInfoFromUser(user.Id, user.UserName);
 
             return Ok();
         }
