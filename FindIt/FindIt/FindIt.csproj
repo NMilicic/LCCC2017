@@ -283,17 +283,22 @@
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAchievementRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGameRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPlayedGameRepository.cs" />
     <Compile Include="Repositories\Interfaces\IQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISkillRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserAchievementsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserInfoRepository.cs" />
+    <Compile Include="Repositories\PlayedGameRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\UserInfoAchievementsRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddViewModels\AddAchievementViewModel.cs" />
     <Compile Include="ViewModels\AddViewModels\AddQuestionViewModel.cs" />
+    <Compile Include="ViewModels\GameAnswersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
