@@ -352,6 +352,8 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\llamasfindit - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\llamasfindit - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
