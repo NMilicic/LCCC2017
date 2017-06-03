@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
@@ -24,7 +25,6 @@ namespace FindIt.Controllers
             return await _userInfoRepository.GetAll();
         }
 
-        // GET api/<controller>/5
         [HttpGet]
         public UserInfo Get(string id)
         {
@@ -32,21 +32,28 @@ namespace FindIt.Controllers
         }
 
         [HttpGet]
-        [Route(Name = "earnedachievements")]
+        [Route("test")]
+        public string Test()
+        {
+            return this.RequestContext.Principal.Identity.GetUserId();
+        }
+
+        [HttpGet]
+        [Route("earnedachievements")]
         public async Task<IEnumerable<Achievements>> GetEarnedAchievements()
         {
-            return await _userInfoRepository.GetEarnedAchievements(User.Identity.GetUserId());
+            return await _userInfoRepository.GetEarnedAchievements(this.RequestContext.Principal.Identity.GetUserId());
         }
 
         [HttpGet]
-        [Route(Name = "playerposition")]
+        [Route("playerposition")]
         public async Task<int> GetPlayersLeaderboardPosition()
         {
-            return await _userInfoRepository.GetPlayersLeaderboardPosition(User.Identity.GetUserId());
+            return await _userInfoRepository.GetPlayersLeaderboardPosition(this.RequestContext.Principal.Identity.GetUserId());
         }
 
         [HttpGet]
-        [Route(Name = "leaderboard")]
+        [Route("leaderboard")]
         public async Task<IEnumerable<UserInfo>> GetLeaderBoard()
         {
             return await _userInfoRepository.GetTopPlayers(10);
