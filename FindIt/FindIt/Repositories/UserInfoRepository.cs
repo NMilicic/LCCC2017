@@ -28,5 +28,18 @@ namespace FindIt.Repositories
 
             _userAchievementsRepository.AddAchievementsToNewUser(userInfo, achievements);
         }
+
+        public async Task<IEnumerable<Achievements>> GetEarnedAchievements(string userId)
+        {
+            var earned = await _userAchievementsRepository.GetAllWhere(m => m.UserInfoId == Guid.Parse(userId));
+            var achievements = new List<Achievements>();
+
+            foreach (var achievement in earned)
+            {
+                achievements.Add(achievement.Achievements);
+            }
+
+            return achievements;
+        }
     }
 }

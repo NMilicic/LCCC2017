@@ -10,5 +10,6 @@ namespace FindIt.Repositories.Interfaces
     public interface IUserInfoRepository : IRepository<UserInfo, Guid>
     {
         Task CreateUserInfoFromUser(string identityId, string identityUsername);
+        Task<IEnumerable<Achievements>> GetEarnedAchievements(string userId);
     }
 }

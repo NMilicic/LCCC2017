@@ -30,6 +30,13 @@ namespace FindIt.Controllers
             return _userInfoRepository.GetById(Guid.Parse(id));
         }
 
+        [HttpGet]
+        [Route(Name = "earnedachievements")]
+        public async Task<IEnumerable<Achievements>> GetEarnedAchievements(string id)
+        {
+            return await _userInfoRepository.GetEarnedAchievements(id);
+        }
+
         // PUT api/<controller>/5
         [HttpPost]
         public void Put(string id, [FromBody] UserInfo userInfo)

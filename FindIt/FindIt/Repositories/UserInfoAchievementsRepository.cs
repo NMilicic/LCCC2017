@@ -46,5 +46,6 @@ namespace FindIt.Repositories
 
             BatchInsert(userAchievements);
         }
+
     }
 }
