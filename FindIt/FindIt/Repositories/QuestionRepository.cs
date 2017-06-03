@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels.AddViewModels;
 
 namespace FindIt.Repositories
 {
@@ -39,6 +40,11 @@ namespace FindIt.Repositories
             }
 
             return gameQuestions;
+        }
+
+        public void Insert(AddQuestionViewModel model)
+        {
+            Insert(new Questions(model));
         }
     }
 }

@@ -226,6 +226,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AchievementsController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -255,6 +256,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ModelExtension\Achievements.cs" />
+    <Compile Include="Models\ModelExtension\Questions.cs" />
     <Compile Include="Models\PlayedGames.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -288,6 +290,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddViewModels\AddAchievementViewModel.cs" />
+    <Compile Include="ViewModels\AddViewModels\AddQuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
