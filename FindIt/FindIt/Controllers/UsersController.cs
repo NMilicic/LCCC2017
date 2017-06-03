@@ -38,6 +38,20 @@ namespace FindIt.Controllers
             return await _userInfoRepository.GetEarnedAchievements(User.Identity.GetUserId());
         }
 
+        [HttpGet]
+        [Route(Name = "playerposition")]
+        public async Task<int> GetPlayersLeaderboardPosition()
+        {
+            return await _userInfoRepository.GetPlayersLeaderboardPosition(User.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Route(Name = "leaderboard")]
+        public async Task<IEnumerable<UserInfo>> GetLeaderBoard()
+        {
+            return await _userInfoRepository.GetTopPlayers(10);
+        }
+
         // PUT api/<controller>/5
         [HttpPost]
         public void Put(string id, [FromBody] UserInfo userInfo)

@@ -44,5 +44,30 @@ namespace FindIt.Repositories
 
             return achievements;
         }
+
+        public async Task<IEnumerable<UserInfo>> GetTopPlayers(int n)
+        {
+            var users = await GetAll();
+            return users.OrderBy(m => m.HighScore).ThenBy(m => m.TotalScore).Take(n).ToList();
+        }
+
+        public async Task<int> GetPlayersLeaderboardPosition(string userId)
+        {
+            var users = await GetAll();
+            users = users.OrderBy(m => m.HighScore).ThenBy(m => m.TotalScore).ToList();
+            var userGuid = Guid.Parse(userId);
+            int index = 0;
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].UserInfoId == userGuid)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index + 1;
+        }
     }
 }
