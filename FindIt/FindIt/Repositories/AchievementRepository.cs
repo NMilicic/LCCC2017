@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
@@ -12,12 +13,13 @@ namespace FindIt.Repositories
     {
         private readonly UserInfoAchievementsRepository _userAchievements = new UserInfoAchievementsRepository();
 
-        public void Insert(AddAchievementViewModel model)
+        public async Task Insert(AddAchievementViewModel model)
         {
             var achievement = new Achievements(model);
             Insert(achievement);
 
-            _userAchievements.AddNewAchievementToUsers(achievement);
+            var users = await (new UserInfoRepository()).GetAll();
+            _userAchievements.AddNewAchievementToUsers(achievement, users);
         }
     }
 }

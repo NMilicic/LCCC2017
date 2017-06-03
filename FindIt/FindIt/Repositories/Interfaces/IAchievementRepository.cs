@@ -10,6 +10,6 @@ namespace FindIt.Repositories.Interfaces
 {
     public interface IAchievementRepository : IRepository<Achievements, Guid>
     {
-        void Insert(AddAchievementViewModel model);
+        Task Insert(AddAchievementViewModel model);
     }
 }

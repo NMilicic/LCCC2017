@@ -24,7 +24,9 @@ namespace FindIt.Repositories
 
             Insert(userInfo);
 
-            await _userAchievementsRepository.AddAchievementsToNewUser(userInfo);
+            var achievements = await (new AchievementRepository()).GetAll();
+
+            _userAchievementsRepository.AddAchievementsToNewUser(userInfo, achievements);
         }
     }
 }

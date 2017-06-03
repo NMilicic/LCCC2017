@@ -10,7 +10,7 @@ namespace FindIt.Repositories.Interfaces
     public interface IUserAchievementsRepository : IRepository<UserAchievements, Guid>
     {
 
-        Task AddAchievementsToNewUser(UserInfo user);
-        Task AddNewAchievementToUsers(Achievements achievement);
+        void AddAchievementsToNewUser(UserInfo user, IEnumerable<Achievements> achievements);
+        void AddNewAchievementToUsers(Achievements achievement, IEnumerable<UserInfo> users);
     }
 }

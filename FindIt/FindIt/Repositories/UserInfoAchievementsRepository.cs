@@ -10,12 +10,9 @@ namespace FindIt.Repositories
 {
     public class UserInfoAchievementsRepository : BaseRepository<UserAchievements, Guid>, IUserAchievementsRepository
     {
-        private readonly IAchievementRepository _achievementRepository = new AchievementRepository();
-        private readonly IUserInfoRepository _userInfoRepository = new UserInfoRepository();
 
-        public async Task AddAchievementsToNewUser(UserInfo user)
+        public void AddAchievementsToNewUser(UserInfo user, IEnumerable<Achievements> achievements)
         {
-            var achievements = await _achievementRepository.GetAll();
             var userAchievements = new List<UserAchievements>();
 
             foreach (var achievement in achievements)
@@ -32,9 +29,8 @@ namespace FindIt.Repositories
             BatchInsert(userAchievements);
         }
 
-        public async Task AddNewAchievementToUsers(Achievements achievement)
+        public void AddNewAchievementToUsers(Achievements achievement, IEnumerable<UserInfo> users)
         {
-            var users = await _userInfoRepository.GetAll();
             var userAchievements = new List<UserAchievements>();
 
             foreach (var user in users)
