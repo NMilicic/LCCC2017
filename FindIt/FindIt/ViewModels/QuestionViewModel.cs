@@ -8,6 +8,7 @@ namespace FindIt.ViewModels
 {
     public class QuestionViewModel
     {
+        public System.Guid QuestionId { get; set; }
         public string Name { get; set; }
         public string ImageUri { get; set; }
         public string Info { get; set; }
@@ -18,6 +19,7 @@ namespace FindIt.ViewModels
 
         public QuestionViewModel(Questions question)
         {
+            QuestionId = question.QuestionId;
             Name = question.Name;
             ImageUri = question.ImageUri;
             Info = question.Info;
