@@ -294,8 +294,10 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repositories\AchievementRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\ChallengeRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAchievementRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IChallengeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGameRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPlayedGameRepository.cs" />
     <Compile Include="Repositories\Interfaces\IQuestionRepository.cs" />
@@ -315,6 +317,7 @@
     <Compile Include="ViewModels\AddViewModels\AddAchievementViewModel.cs" />
     <Compile Include="ViewModels\AddViewModels\AddQuestionViewModel.cs" />
     <Compile Include="ViewModels\AddViewModels\AddSkillViewModel.cs" />
+    <Compile Include="ViewModels\ChallengeViewModel.cs" />
     <Compile Include="ViewModels\GameAnswersViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\NewGameViewModel.cs" />

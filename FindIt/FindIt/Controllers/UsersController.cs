@@ -9,6 +9,7 @@ using System.Web.Routing;
 using FindIt.Models;
 using FindIt.Repositories;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
@@ -78,6 +79,21 @@ namespace FindIt.Controllers
         public async Task<IEnumerable<Skills>> GetUserSkills()
         {
             return await _userInfoRepository.GetUserSkills(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Route("pendingchallenges")]
+        public async Task<IEnumerable<ChallengeViewModel>> GetPendingChallenges()
+        {
+            return await _userInfoRepository.GetChallenges(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
+        [HttpPost]
+        [Route("createchallenge")]
+        public void CreateChallenge([FromBody] string challengeeId, string gameId)
+        {
+            _userInfoRepository.CreateChallenge(
+                this.RequestContext.Principal.Identity.GetUserId(), challengeeId, gameId);
         }
 
         [HttpPost]

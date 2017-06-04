@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels;
 
 namespace FindIt.Repositories
 {
@@ -11,6 +12,7 @@ namespace FindIt.Repositories
     {
         private readonly IUserAchievementsRepository _userAchievementsRepository = new UserInfoAchievementsRepository();
         private readonly IUserSkillRepository _userSkillRepository = new UserSkillRepository();
+        private readonly IChallengeRepository _challengeRepository = new ChallengeRepository();
 
         public async Task CreateUserInfoFromUser(string identityId, string identityUsername)
         {
@@ -118,6 +120,18 @@ namespace FindIt.Repositories
             return (await playedGameRepository.GetAllWhere(m => m.UserInfoId == userGuid))
                 .OrderBy(m => m.Score)
                 .First();
+        }
+
+        public Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId)
+        {
+            return _challengeRepository.GetChallenges(userId);
+        }
+
+        public void CreateChallenge(string challengerId, string challengeeId, string gameId)
+        {
+            var user = GetById(Guid.Parse(challengerId));
+
+            _challengeRepository.CreateChallenge(user, challengeeId, gameId);
         }
     }
 }
