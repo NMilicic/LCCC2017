@@ -238,6 +238,9 @@
     <Compile Include="Models\Achievements.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Challenge.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
@@ -306,6 +309,8 @@
     <Compile Include="ViewModels\AddViewModels\AddSkillViewModel.cs" />
     <Compile Include="ViewModels\GameAnswersViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\NewGameViewModel.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

@@ -24,7 +24,7 @@ namespace FindIt.Controllers
 
         [HttpGet]
         [Route("newgame")]
-        public async Task<Games> StartNewGame()
+        public async Task<NewGameViewModel> StartNewGame()
         {
             return await _gameRepository.CreateNewGame();
         }

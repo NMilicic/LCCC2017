@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="guessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="guessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Achievements">
           <Key>
             <PropertyRef Name="AchievementId" />
@@ -13,6 +13,17 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ImageUri" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Challenge">
+          <Key>
+            <PropertyRef Name="ChallengeId" />
+          </Key>
+          <Property Name="ChallengeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SendingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceivingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Seen" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -91,6 +102,42 @@
           <Property Name="SkillId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Activated" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Challenge_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="Challenge" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenge_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Challenge" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="SendingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenge_UserInfo1">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Challenge" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="ReceivingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Games_Questions">
           <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
           <End Role="Games" Type="Self.Games" Multiplicity="*" />
@@ -285,6 +332,7 @@
         </Association>
         <EntityContainer Name="guessDBModelStoreContainer">
           <EntitySet Name="Achievements" EntityType="Self.Achievements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Challenge" EntityType="Self.Challenge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayedGames" EntityType="Self.PlayedGames" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
@@ -292,6 +340,18 @@
           <EntitySet Name="UserAchievements" EntityType="Self.UserAchievements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSkills" EntityType="Self.UserSkills" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Challenge_Games" Association="Self.FK_Challenge_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenge_UserInfo" Association="Self.FK_Challenge_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenge_UserInfo1" Association="Self.FK_Challenge_UserInfo1">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
           <AssociationSet Name="FK_Games_Questions" Association="Self.FK_Games_Questions">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Games" EntitySet="Games" />
@@ -357,8 +417,7 @@
             <End Role="UserSkills" EntitySet="UserSkills" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="guessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -398,6 +457,7 @@
           <NavigationProperty Name="Questions8" Relationship="Self.FK_Games_Questions8" FromRole="Games" ToRole="Questions" />
           <NavigationProperty Name="Questions9" Relationship="Self.FK_Games_Questions9" FromRole="Games" ToRole="Questions" />
           <NavigationProperty Name="PlayedGames" Relationship="Self.FK_PlayedGames_Games" FromRole="Games" ToRole="PlayedGames" />
+          <NavigationProperty Name="Challenge" Relationship="guessDBModel.FK_Challenge_Games" FromRole="Games" ToRole="Challenge" />
         </EntityType>
         <EntityType Name="PlayedGames">
           <Key>
@@ -468,6 +528,8 @@
           <NavigationProperty Name="PlayedGames" Relationship="Self.FK_PlayedGames_UserInfo" FromRole="UserInfo" ToRole="PlayedGames" />
           <NavigationProperty Name="UserAchievements" Relationship="Self.FK_UserAchievements_UserInfo" FromRole="UserInfo" ToRole="UserAchievements" />
           <NavigationProperty Name="UserSkills" Relationship="Self.FK_UserSkills_UserInfo" FromRole="UserInfo" ToRole="UserSkills" />
+          <NavigationProperty Name="Challenge" Relationship="guessDBModel.FK_Challenge_UserInfo" FromRole="UserInfo" ToRole="Challenge" />
+          <NavigationProperty Name="Challenge1" Relationship="guessDBModel.FK_Challenge_UserInfo1" FromRole="UserInfo" ToRole="Challenge" />
         </EntityType>
         <EntityType Name="UserSkills">
           <Key>
@@ -745,7 +807,70 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserSkills" EntitySet="UserSkills" />
           </AssociationSet>
+          <EntitySet Name="Challenge" EntityType="guessDBModel.Challenge" />
+          <AssociationSet Name="FK_Challenge_Games" Association="guessDBModel.FK_Challenge_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenge_UserInfo" Association="guessDBModel.FK_Challenge_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenge_UserInfo1" Association="guessDBModel.FK_Challenge_UserInfo1">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Challenge" EntitySet="Challenge" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Challenge">
+          <Key>
+            <PropertyRef Name="ChallengeId" />
+          </Key>
+          <Property Name="ChallengeId" Type="Guid" Nullable="false" />
+          <Property Name="SendingUserId" Type="Guid" Nullable="false" />
+          <Property Name="ReceivingUserId" Type="Guid" Nullable="false" />
+          <Property Name="GameId" Type="Guid" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Seen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="guessDBModel.FK_Challenge_Games" FromRole="Challenge" ToRole="Games" />
+          <NavigationProperty Name="UserInfo" Relationship="guessDBModel.FK_Challenge_UserInfo" FromRole="Challenge" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo1" Relationship="guessDBModel.FK_Challenge_UserInfo1" FromRole="Challenge" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_Challenge_Games">
+          <End Type="guessDBModel.Games" Role="Games" Multiplicity="1" />
+          <End Type="guessDBModel.Challenge" Role="Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenge_UserInfo">
+          <End Type="guessDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="guessDBModel.Challenge" Role="Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="SendingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenge_UserInfo1">
+          <End Type="guessDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="guessDBModel.Challenge" Role="Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoId" />
+            </Principal>
+            <Dependent Role="Challenge">
+              <PropertyRef Name="ReceivingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -843,6 +968,18 @@
                 <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="Activated" ColumnName="Activated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Challenge">
+            <EntityTypeMapping TypeName="guessDBModel.Challenge">
+              <MappingFragment StoreEntitySet="Challenge">
+                <ScalarProperty Name="Seen" ColumnName="Seen" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="ReceivingUserId" ColumnName="ReceivingUserId" />
+                <ScalarProperty Name="SendingUserId" ColumnName="SendingUserId" />
+                <ScalarProperty Name="ChallengeId" ColumnName="ChallengeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

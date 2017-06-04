@@ -13,7 +13,7 @@ namespace FindIt.Repositories
     public class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class
     {
 
-        private readonly GuessDBEntities _db = new GuessDBEntities();
+        protected readonly GuessDBEntities _db = new GuessDBEntities();
 
         public void Delete(TPrimaryKey id)
         {

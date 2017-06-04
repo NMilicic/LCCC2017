@@ -18,6 +18,7 @@ namespace FindIt.Models
         public Games()
         {
             this.PlayedGames = new HashSet<PlayedGames>();
+            this.Challenge = new HashSet<Challenge>();
         }
     
         public System.Guid GameId { get; set; }
@@ -44,5 +45,7 @@ namespace FindIt.Models
         public virtual Questions Questions9 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayedGames> PlayedGames { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Challenge> Challenge { get; set; }
     }
 }
