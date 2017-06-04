@@ -1,3 +1,8 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container-fluid">
+  <div class="col-md-3" [hidden]="!isUserDataSet">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div [ngClass]="{'col-md-12' : !isUserDataSet ,'col-md-9': isUserDataSet}" >
+    <app-google-map></app-google-map>
+  </div>
+</div>

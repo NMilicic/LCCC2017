@@ -1,0 +1,8 @@
+<app-start-game (notify)='onNotify($event)'></app-start-game>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+ 
+ <div class="marker-container" *ngIf="userDataSet" >
+  <agm-marker *ngFor="let m of markers; let i = index"  (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng"
+    [label]="m.label" [markerDraggable]="m.draggable" [openInfoWindow]="m.infoWindow" (dragEnd)="markerDragEnd(m, $event)"><div><p>test</p></div></agm-marker>
+ </div>
+</agm-map>
