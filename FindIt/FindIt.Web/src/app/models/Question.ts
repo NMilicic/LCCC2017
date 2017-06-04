@@ -6,4 +6,6 @@ export class Question {
     SecondHint: string;
     Latitude: number;
     Longitude: number;
+    Answered: boolean;
+    Score: number;
 }

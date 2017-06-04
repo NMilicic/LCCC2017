@@ -12,7 +12,7 @@ export class GoogleMapComponent implements OnInit {
   lng: number = 7.809007;
   markers: marker[] = [];
   zoom: number = 8;
-  userDataSet: boolean = localStorage.getItem('username') ? true : false;
+  gameStarted: boolean;
   constructor() {
 
   }
@@ -31,8 +31,7 @@ export class GoogleMapComponent implements OnInit {
   }
 
   onNotify(message: boolean): void {
-    debugger;
-    this.userDataSet = true;
+    this.gameStarted = true;
   }
 
 }

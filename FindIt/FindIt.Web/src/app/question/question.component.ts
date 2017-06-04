@@ -1,26 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { QuestionService } from '../question.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Question } from '../models/question';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css'],
-  providers: [QuestionService]
+  styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-  questions: Question[];
-  errorMessage: string
-  constructor(private questionService: QuestionService) { }
+  @Input() private questions: Question[];
+  @Input() private currentQuestion: Question = new Question();
 
-  ngOnInit() {
-    this.questionService.getQuestions()
-      .subscribe(
-      heroes => {
-        this.questions = heroes
-      },
-      error => this.errorMessage = <any>error);
+  constructor() { }
+
+  ngOnInit() { 
+    if(!this.currentQuestion)
+      this.currentQuestion = new Question();
   }
+
 
 
 }

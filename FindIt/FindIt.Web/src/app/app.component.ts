@@ -7,7 +7,7 @@ import { UserService} from './user.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isUserDataSet : boolean = localStorage.getItem('username') ? true: false;
+  isUserDataSet : boolean = false;
   title = 'app works!';
 
   constructor(private userservice: UserService) {

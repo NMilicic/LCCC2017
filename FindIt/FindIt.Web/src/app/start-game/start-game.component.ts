@@ -18,14 +18,16 @@ export class StartGameComponent {
   }
 
   model = new User();
-  submitted =  localStorage.getItem('username') ? true : false;
+  submitted =  false;
   onSubmit() {
     this.userservice.userNameReceived(this.model);
-
       localStorage.setItem('username', this.model.Name);
       this.submitted = true;
       this.notify.emit(true);
 
+  }
+  ngOnInit() {
+    this.model.Name = localStorage.getItem('username');
   }
 
 }

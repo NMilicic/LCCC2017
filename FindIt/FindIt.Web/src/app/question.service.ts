@@ -19,7 +19,7 @@ export class QuestionService {
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.data || {};
+    return body.Questions || {};
   }
   private handleError(error: Response | any) {
     let errMsg: string;
