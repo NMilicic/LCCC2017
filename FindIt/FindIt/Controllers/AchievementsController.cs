@@ -27,7 +27,7 @@ namespace FindIt.Controllers
 
         // GET api/values/5
         [HttpGet]
-        public Achievements Get(string id)
+        public Achievements Get([FromUri] string id)
         {
             return _achievementRepository.GetById(Guid.Parse(id));
         }

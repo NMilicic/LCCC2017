@@ -26,7 +26,7 @@ namespace FindIt.Controllers
         }
 
         [HttpGet]
-        public UserInfo Get(string id)
+        public UserInfo Get([FromUri] string id)
         {
             return _userInfoRepository.GetById(Guid.Parse(id));
         }

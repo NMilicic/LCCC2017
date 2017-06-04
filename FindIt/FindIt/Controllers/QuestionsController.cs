@@ -26,7 +26,7 @@ namespace FindIt.Controllers
 
         // GET api/<controller>/5
         [HttpGet]
-        public Questions Get(string id)
+        public Questions Get([FromUri] string id)
         {
             return _questionRepository.GetById(Guid.Parse(id));
         }

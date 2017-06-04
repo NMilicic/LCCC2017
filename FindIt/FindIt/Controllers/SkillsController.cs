@@ -27,7 +27,7 @@ namespace FindIt.Controllers
 
         // GET api/<controller>/5
         [HttpGet]
-        public Skills Get(string id)
+        public Skills Get([FromUri] string id)
         {
             return _skillRepository.GetById(Guid.Parse(id));
         }
