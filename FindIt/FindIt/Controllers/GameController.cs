@@ -33,7 +33,8 @@ namespace FindIt.Controllers
         [Route("submitgame")]
         public double SubmitGameForEvaluation([FromBody] GameViewModel model)
         {
-            var playedGame = _playedGameRepository.CalculateScore(model.GameId, model.Answers, User.Identity.GetUserId());
+            var playedGame = _playedGameRepository.CalculateScore(model.GameId, model.Answers, 
+                this.RequestContext.Principal.Identity.GetUserId());
             return playedGame.Score;
         }
 
