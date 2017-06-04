@@ -16,7 +16,7 @@ namespace FindIt
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            CreateRoles();
+            //CreateRoles();
         }
 
         private void CreateRoles()
