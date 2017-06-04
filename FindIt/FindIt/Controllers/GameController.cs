@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using FindIt.Models;
 using FindIt.Repositories;
 using FindIt.Repositories.Interfaces;
@@ -14,7 +15,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
-
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/game")]
     public class GameController : ApiController
     {

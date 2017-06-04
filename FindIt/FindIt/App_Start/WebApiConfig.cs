@@ -20,7 +20,7 @@ namespace FindIt
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            config.EnableCors(new EnableCorsAttribute("www.llamasfindit.azurewebsites.net", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("www.example.com", "*", "*"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
