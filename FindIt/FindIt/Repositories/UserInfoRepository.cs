@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
 
@@ -10,14 +9,12 @@ namespace FindIt.Repositories
 {
     public class UserInfoRepository : BaseRepository<UserInfo, Guid>, IUserInfoRepository
     {
-   
         private readonly IUserAchievementsRepository _userAchievementsRepository = new UserInfoAchievementsRepository();
         private readonly IUserSkillRepository _userSkillRepository = new UserSkillRepository();
-        private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
 
         public async Task CreateUserInfoFromUser(string identityId, string identityUsername)
         {
-            var userInfo = new UserInfo()
+            var userInfo = new UserInfo
             {
                 UserInfoId = Guid.Parse(identityId),
                 AvatarUri = "",
@@ -26,8 +23,8 @@ namespace FindIt.Repositories
 
             Insert(userInfo);
 
-            var achievements = await (new AchievementRepository()).GetAll();
-            var skills = await (new SkillRepository()).GetAll();
+            var achievements = await new AchievementRepository().GetAll();
+            var skills = await new SkillRepository().GetAll();
 
             _userAchievementsRepository.AddAchievementsToNewUser(userInfo, achievements);
             _userSkillRepository.AddSkillsToNewUser(userInfo, skills);
@@ -60,7 +57,7 @@ namespace FindIt.Repositories
             var user = GetById(userGuid);
 
             var skillGuid = Guid.Parse(skillId);
-            var skill = (new SkillRepository()).GetById(skillGuid);
+            var skill = new SkillRepository().GetById(skillGuid);
 
             if (user.Coins < skill.Cost)
             {
@@ -68,8 +65,9 @@ namespace FindIt.Repositories
             }
 
 
-            var userSkill =(await _userSkillRepository.GetAllWhere(m => m.SkillId == skillGuid && m.UserInfoId == userGuid))
-                .First();
+            var userSkill =
+                (await _userSkillRepository.GetAllWhere(m => (m.SkillId == skillGuid) && (m.UserInfoId == userGuid)))
+                    .First();
 
             userSkill.Activated = true;
             user.Coins -= skill.Cost;
@@ -91,9 +89,9 @@ namespace FindIt.Repositories
             var users = await GetAll();
             users = users.OrderBy(m => m.HighScore).ThenBy(m => m.TotalScore).ToList();
             var userGuid = Guid.Parse(userId);
-            int index = 0;
+            var index = 0;
 
-            for (int i = 0; i < users.Count; i++)
+            for (var i = 0; i < users.Count; i++)
             {
                 if (users[i].UserInfoId == userGuid)
                 {
@@ -108,15 +106,16 @@ namespace FindIt.Repositories
         public async Task<IEnumerable<PlayedGames>> GetPlayedGames(string userId)
         {
             var userGuid = Guid.Parse(userId);
+            var playedGameRepository = new PlayedGameRepository();
 
-            return await _playedGameRepository.GetAllWhere(m => m.UserInfoId == userGuid);
+            return await playedGameRepository.GetAllWhere(m => m.UserInfoId == userGuid);
         }
 
         public async Task<PlayedGames> GetBestGame(string userId)
         {
             var userGuid = Guid.Parse(userId);
-
-            return (await _playedGameRepository.GetAllWhere(m => m.UserInfoId == userGuid))
+            var playedGameRepository = new PlayedGameRepository();
+            return (await playedGameRepository.GetAllWhere(m => m.UserInfoId == userGuid))
                 .OrderBy(m => m.Score)
                 .First();
         }
