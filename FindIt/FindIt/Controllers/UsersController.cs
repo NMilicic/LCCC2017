@@ -59,6 +59,34 @@ namespace FindIt.Controllers
             return await _userInfoRepository.GetTopPlayers(10);
         }
 
+        [HttpGet]
+        [Route("playedgames")]
+        public async Task<IEnumerable<PlayedGames>> GetPlayedGames()
+        {
+            return await _userInfoRepository.GetPlayedGames(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Route("bestgame")]
+        public async Task<PlayedGames> GetBestGame()
+        {
+            return await _userInfoRepository.GetBestGame(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
+        [HttpGet]
+        [Route("skills")]
+        public async Task<IEnumerable<Skills>> GetUserSkills()
+        {
+            return await _userInfoRepository.GetUserSkills(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
+        [HttpPost]
+        [Route("activateskill")]
+        public async Task<bool> ActivateSkill([FromBody] string skillId)
+        {
+            return await _userInfoRepository.ActivateSkill(this.RequestContext.Principal.Identity.GetUserId(), skillId);
+        }
+
         // PUT api/<controller>/5
         [HttpPost]
         public void Put(string id, [FromBody] UserInfo userInfo)

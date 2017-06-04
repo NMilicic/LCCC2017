@@ -11,7 +11,11 @@ namespace FindIt.Repositories.Interfaces
     {
         Task CreateUserInfoFromUser(string identityId, string identityUsername);
         Task<IEnumerable<Achievements>> GetEarnedAchievements(string userId);
+        Task<IEnumerable<Skills>> GetUserSkills(string userId);
+        Task<bool> ActivateSkill(string userId, string skillId);
         Task<IEnumerable<UserInfo>> GetTopPlayers(int n);
         Task<int> GetPlayersLeaderboardPosition(string userId);
+        Task<IEnumerable<PlayedGames>> GetPlayedGames(string userId);
+        Task<PlayedGames> GetBestGame(string userId);
     }
 }
