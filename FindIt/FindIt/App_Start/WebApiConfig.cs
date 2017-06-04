@@ -13,6 +13,8 @@ namespace FindIt
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
@@ -20,7 +22,6 @@ namespace FindIt
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
