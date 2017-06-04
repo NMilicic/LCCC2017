@@ -89,6 +89,14 @@ namespace FindIt.Controllers
         }
 
         [HttpPost]
+        [Route("challengeresponse")]
+        public void RespondToChallenge([FromBody] string challengeId, string challengerId, bool accepted, string gameId)
+        {
+            _userInfoRepository.RespondToChallenge(challengeId, challengerId,
+                this.RequestContext.Principal.Identity.GetUserId(), accepted, gameId);
+        }
+
+        [HttpPost]
         [Route("createchallenge")]
         public void CreateChallenge([FromBody] string challengeeId, string gameId)
         {

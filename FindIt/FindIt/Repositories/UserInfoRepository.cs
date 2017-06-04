@@ -133,5 +133,12 @@ namespace FindIt.Repositories
 
             _challengeRepository.CreateChallenge(user, challengeeId, gameId);
         }
+
+        public void RespondToChallenge(string challengeId, string challengerId, string challengeeId, bool accepted = false,
+            string gameId = null)
+        {
+            _challengeRepository.RespondToChallenge(challengeId, challengerId, 
+                GetById(Guid.Parse(challengeeId)), accepted, gameId);
+        }
     }
 }

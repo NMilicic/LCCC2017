@@ -20,5 +20,7 @@ namespace FindIt.Repositories.Interfaces
         Task<PlayedGames> GetBestGame(string userId);
         Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId);
         void CreateChallenge(string challengerId, string challengeeId, string gameId);
+        void RespondToChallenge(string challengeId, string challengerId, string challengeeid,
+            bool accepted = false, string gameId = null);
     }
 }
