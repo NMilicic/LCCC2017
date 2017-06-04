@@ -8,6 +8,7 @@ using System.Web.Http;
 using FindIt.Models;
 using FindIt.Repositories;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels;
 using FindIt.ViewModels.AddViewModels;
 
 namespace FindIt.Controllers
@@ -19,16 +20,16 @@ namespace FindIt.Controllers
         private readonly IQuestionRepository _questionRepository = new QuestionRepository();
 
         [HttpGet]
-        public async Task<IEnumerable<Questions>> Get()
+        public async Task<IEnumerable<QuestionViewModel>> Get()
         {
-            return await _questionRepository.GetAll();
+            return await _questionRepository.GetQuestions();
         }
 
         // GET api/<controller>/5
         [HttpGet]
-        public Questions Get([FromUri] string id)
+        public QuestionViewModel Get([FromUri] string questionId)
         {
-            return _questionRepository.GetById(Guid.Parse(id));
+            return _questionRepository.GetQuestionById(questionId);
         }
 
         // POST api/<controller>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
+using FindIt.ViewModels;
 using FindIt.ViewModels.AddViewModels;
 
 namespace FindIt.Repositories
@@ -45,6 +46,24 @@ namespace FindIt.Repositories
         public void Insert(AddQuestionViewModel model)
         {
             Insert(new Questions(model));
+        }
+
+        public async Task<IEnumerable<QuestionViewModel>> GetQuestions()
+        {
+            var questions = await GetAll();
+            var result = new List<QuestionViewModel>();
+
+            foreach (var question in questions)
+            {
+                result.Add(new QuestionViewModel(question));
+            }
+
+            return result;
+        }
+
+        public QuestionViewModel GetQuestionById(string questionId)
+        {
+            return new QuestionViewModel(GetById(Guid.Parse(questionId)));
         }
     }
 }
