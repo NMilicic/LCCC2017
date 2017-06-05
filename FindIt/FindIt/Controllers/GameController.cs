@@ -15,7 +15,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
+    //[EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/game")]
     public class GameController : ApiController
     {
@@ -38,11 +38,19 @@ namespace FindIt.Controllers
             return _challengeRepository.GetChallengeGame(playedGameId);
         }
 
+        [HttpGet]
+        [Route("submitgame")]
+        public async Task<PostGameViewModel> SubmitGameForEvaluationTest([FromUri] GameAnswersViewModel model)
+        {
+            return await _playedGameRepository.CalculateScore(model);
+        }
+
         [HttpPost]
         [Route("submitgame")]
         public async Task<PostGameViewModel> SubmitGameForEvaluation([FromBody] GameAnswersViewModel model)
         {
-            return await _playedGameRepository.CalculateScore(model, "2ABBCA73-1E06-4F1F-9105-71B97E84451A");
+            return await _playedGameRepository.CalculateScore(model);
+            //return await _playedGameRepository.CalculateScore(model, "2ABBCA73-1E06-4F1F-9105-71B97E84451A");
             //this.RequestContext.Principal.Identity.GetUserId());
 
         }

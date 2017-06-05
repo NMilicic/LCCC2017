@@ -11,5 +11,6 @@ namespace FindIt.Repositories.Interfaces
     public interface IPlayedGameRepository : IRepository<PlayedGames, Guid>
     {
         Task<PostGameViewModel> CalculateScore(GameAnswersViewModel answers, string userId);
+        Task<PostGameViewModel> CalculateScore(GameAnswersViewModel answers);
     }
 }

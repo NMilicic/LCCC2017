@@ -58,6 +58,44 @@ namespace FindIt.Repositories
             };
         }
 
+        public async Task<PostGameViewModel> CalculateScore(GameAnswersViewModel answers)
+        {
+            var userInfoRepository = new UserInfoRepository();
+            var userGuid = Guid.NewGuid();
+            await userInfoRepository.CreateUserInfoFromUser(userGuid.ToString(), answers.Username);
+            var newUser = userInfoRepository.GetById(userGuid);
+
+            var game = _gameRepository.GetById(Guid.Parse(answers.GameId));
+            var playedGame = new PlayedGames()
+            {
+                PlayedGameId = Guid.NewGuid(),
+                DatePlayed = DateTime.Now,
+                GameId = game.GameId,
+                Score = CalculateScore(game, answers),
+                UserInfoId = newUser.UserInfoId
+            };
+
+            Insert(playedGame);
+
+            newUser.TotalScore += playedGame.Score;
+
+            if (newUser.HighScore < playedGame.Score)
+            {
+                newUser.HighScore = playedGame.Score;
+            }
+
+            userInfoRepository.Update(newUser);
+
+            var usersAchievements = await userInfoRepository.GetEarnedAchievements(newUser.UserInfoId.ToString());
+            var achievements = await GetNewAchievements(usersAchievements, playedGame.Score, newUser.UserInfoId);
+
+            return new PostGameViewModel()
+            {
+                Score = playedGame.Score,
+                NewAchievements = achievements
+            };
+        }
+
         private async Task<List<Achievements>> GetNewAchievements(IEnumerable<Achievements> usersAchievements, 
             double score, Guid userGuid)
         {
@@ -85,7 +123,7 @@ namespace FindIt.Repositories
 
             if (score >= QuestionPoints * NoOfQuestions * 0.9)
             {
-                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan90Id, achievements);
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.MoreThan90Id, achievements);
             }
 
             return achievements;
