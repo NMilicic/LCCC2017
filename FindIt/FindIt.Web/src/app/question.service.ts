@@ -10,7 +10,7 @@ import { Marker } from './models/marker'
 
 @Injectable()
 export class QuestionService {
-  private questionsUrl = 'http://llamasfindit.azurewebsites.net/api/game/newgame';
+  private questionsUrl = 'https://llamasfindit.azurewebsites.net/api/game/newgame';
   constructor(private http: Http) { }
 
   getQuestions(): Observable<Game> {
@@ -50,7 +50,7 @@ export class QuestionService {
     tmp.Hints1Used = tmp.Hints1Used.substring(0, tmp.Hints1Used.length - 1);
     tmp.Hints2Used = tmp.Hints2Used.substring(0, tmp.Hints2Used.length - 1);
     debugger;
-    this.http.post('http://llamasfindit.azurewebsites.net/api/game/submitgame', { tmp }, headers)
+    this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', { tmp }, headers)
       .map(res => res.json())
       .subscribe(
       data => console.log(data),

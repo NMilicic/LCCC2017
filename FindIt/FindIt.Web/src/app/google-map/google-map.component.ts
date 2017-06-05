@@ -19,6 +19,7 @@ export class GoogleMapComponent implements OnInit {
   markers: Marker[] = [];
   zoom: number = 2;
   gameStarted: boolean;
+  gameEnded: boolean;
   showConfirmationDialog: boolean = false;
   game: Game = new Game();
   currentQuestion: Question;
@@ -60,9 +61,8 @@ export class GoogleMapComponent implements OnInit {
 
     showHideService.evaluate$.subscribe(
       data => {
+        this.showHideDialog(false);
         this.EvaluateGame();
-        console.log(this.game.Questions);
-        debugger;
       });
   }
 
@@ -120,9 +120,11 @@ export class GoogleMapComponent implements OnInit {
     this.markers[i].openInfoWindow = true;
   }
 
-EvaluateGame(){
-this.questionService.evaluateGame(this.game)
-}
+  EvaluateGame() {
+    this.questionService.evaluateGame(this.game)
+    this.gameStarted = false;
+    this.gameEnded = true;
+  }
 
 }
 
