@@ -18,6 +18,8 @@ namespace FindIt.Repositories.Interfaces
         Task<int> GetPlayersLeaderboardPosition(string userId);
         Task<IEnumerable<PlayedGames>> GetPlayedGames(string userId);
         Task<PlayedGames> GetBestGame(string userId);
+
+        Task<IEnumerable<ChallengeViewModel>> GetChallengeResponse(string userId);
         Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId);
         void CreateChallenge(string challengerId, string challengeeId, string gameId);
         void RespondToChallenge(string challengeId, string challengerId, string challengeeid,

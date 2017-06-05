@@ -122,6 +122,11 @@ namespace FindIt.Repositories
                 .First();
         }
 
+        public Task<IEnumerable<ChallengeViewModel>> GetChallengeResponse(string userId)
+        {
+            return _challengeRepository.GetChallengeResponse(userId);
+        }
+
         public Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId)
         {
             return _challengeRepository.GetChallenges(userId);

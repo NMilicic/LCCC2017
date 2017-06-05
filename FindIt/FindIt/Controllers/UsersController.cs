@@ -88,6 +88,13 @@ namespace FindIt.Controllers
             return await _userInfoRepository.GetChallenges(this.RequestContext.Principal.Identity.GetUserId());
         }
 
+        [HttpGet]
+        [Route("answeredchallenges")]
+        public async Task<IEnumerable<ChallengeViewModel>> GetAnsweredChallenges()
+        {
+            return await _userInfoRepository.GetChallengeResponse(this.RequestContext.Principal.Identity.GetUserId());
+        }
+
         [HttpPost]
         [Route("challengeresponse")]
         public void RespondToChallenge([FromBody] string challengeId, string challengerId, bool accepted, string gameId)

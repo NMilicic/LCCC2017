@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1df95df7b8ed47eea962bdb0fcb2a556" Name="Diagram1" ZoomLevel="34">
+      <Diagram DiagramId="1df95df7b8ed47eea962bdb0fcb2a556" Name="Diagram1" ZoomLevel="65">
         <EntityTypeShape EntityType="guessDBModel.Achievements" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="guessDBModel.Challenge" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="guessDBModel.Games" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />

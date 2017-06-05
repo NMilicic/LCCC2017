@@ -7,14 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.Serialization;
-
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
-    [DataContract]
     public partial class Skills
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,14 +19,10 @@ namespace FindIt.Models
         {
             this.UserSkills = new HashSet<UserSkills>();
         }
-
-        [DataMember]
+    
         public System.Guid SkillId { get; set; }
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
         public string Description { get; set; }
-        [DataMember]
         public int Cost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

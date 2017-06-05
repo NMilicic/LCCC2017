@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="guessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="guessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Achievements">
           <Key>
             <PropertyRef Name="AchievementId" />
@@ -24,6 +24,7 @@
           <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Seen" Type="bit" Nullable="false" />
+          <Property Name="Response" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -417,8 +418,7 @@
             <End Role="UserSkills" EntitySet="UserSkills" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="guessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -445,6 +445,7 @@
           <NavigationProperty Name="PlayedGames" Relationship="Self.FK_Challenge_Games" FromRole="Challenge" ToRole="PlayedGames" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_Challenge_UserInfo" FromRole="Challenge" ToRole="UserInfo" />
           <NavigationProperty Name="UserInfo1" Relationship="Self.FK_Challenge_UserInfo1" FromRole="Challenge" ToRole="UserInfo" />
+          <Property Name="Response" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -891,6 +892,7 @@
           <EntitySetMapping Name="Challenge">
             <EntityTypeMapping TypeName="guessDBModel.Challenge">
               <MappingFragment StoreEntitySet="Challenge">
+                <ScalarProperty Name="Response" ColumnName="Response" />
                 <ScalarProperty Name="ChallengeId" ColumnName="ChallengeId" />
                 <ScalarProperty Name="SendingUserId" ColumnName="SendingUserId" />
                 <ScalarProperty Name="ReceivingUserId" ColumnName="ReceivingUserId" />

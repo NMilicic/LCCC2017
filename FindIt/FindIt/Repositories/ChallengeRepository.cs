@@ -25,12 +25,30 @@ namespace FindIt.Repositories
         public async Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId)
         {
             var userGuid = Guid.Parse(userId);
-            var challenges = await GetAllWhere(m => !m.Seen && m.ReceivingUserId == userGuid);
+            var challenges = await GetAllWhere(m => !m.Seen && !m.Response && m.ReceivingUserId == userGuid);
             var result = new List<ChallengeViewModel>();
 
             foreach (var challenge in challenges)
             {
                 result.Add(new ChallengeViewModel(challenge));
+                challenge.Seen = true;
+                Update(challenge);
+            }
+
+            return result;
+        }
+
+        public async Task<IEnumerable<ChallengeViewModel>> GetChallengeResponse(string userId)
+        {
+            var userGuid = Guid.Parse(userId);
+            var responses = await GetAllWhere(m => !m.Seen && m.Response && m.ReceivingUserId == userGuid);
+            var result = new List<ChallengeViewModel>();
+
+            foreach (var challenge in responses)
+            {
+                result.Add(new ChallengeViewModel(challenge));
+                challenge.Seen = true;
+                Update(challenge);
             }
 
             return result;
@@ -45,6 +63,7 @@ namespace FindIt.Repositories
                 SendingUserId = challenger.UserInfoId,
                 ReceivingUserId = Guid.Parse(challengeeId),
                 Seen = false,
+                Response = false,
                 Message = Challenged(challenger.Username)
             };
 
@@ -63,7 +82,8 @@ namespace FindIt.Repositories
                 ChallengeId = Guid.NewGuid(),
                 ReceivingUserId = Guid.Parse(challengeId),
                 SendingUserId = challengee.UserInfoId,
-                Seen = false
+                Seen = false,
+                Response = true
             };
 
             if (!accepted)

@@ -7,23 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.Serialization;
-
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
-    [DataContract]
     public partial class UserAchievements
     {
-        [DataMember]
         public System.Guid UserAchievementId { get; set; }
-        [DataMember]
         public System.Guid AchievementId { get; set; }
-        [DataMember]
         public System.Guid UserInfoId { get; set; }
-        [DataMember]
         public bool Achieved { get; set; }
     
         public virtual Achievements Achievements { get; set; }
