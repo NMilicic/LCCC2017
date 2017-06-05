@@ -5,7 +5,7 @@
       <app-side-bar [questions]="game.Questions" [currentQuestion]="currentQuestion" [showQuestionDetails]="showQuestionDetails"></app-side-bar>
     </div>
     <div [ngClass]="{'col-md-12 no-padding' : !gameStarted ,'col-md-9 no-padding': gameStarted}">
-      <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered" [showFinishGame]="showFinishGame"></app-confirm-answer>
+      <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered" [showFinishGame]="showFinishGame" [userHasSetMarket] =" markers.lenght > 0"></app-confirm-answer>
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
 
         <div class="marker-container" *ngIf="gameStarted">

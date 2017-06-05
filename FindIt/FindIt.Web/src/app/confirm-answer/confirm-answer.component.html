@@ -3,7 +3,7 @@
     <p> Is this yours final answer on question {{currentQuestion.Order}}?</p>
     <div class="button-group pull-right">
       <button class="btn btn-danger" (click)="dismissDialog()">Cancel</button>
-      <button class="btn btn-success" (click)=" showCorrectAnswer()">Confirm</button>
+      <button class="btn btn-success" [disabled]="userHasSetMarket" (click)=" showCorrectAnswer()">Confirm</button>
     </div>
   </div>
   <div *ngIf="isAnswered && !showFinishGame">

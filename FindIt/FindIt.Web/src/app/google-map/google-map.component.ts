@@ -60,9 +60,8 @@ export class GoogleMapComponent implements OnInit {
 
     showHideService.evaluate$.subscribe(
       data => {
+        this.showHideDialog(false);
         this.EvaluateGame();
-        console.log(this.game.Questions);
-        debugger;
       });
   }
 
