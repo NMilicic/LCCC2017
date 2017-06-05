@@ -1,14 +1,22 @@
-<div class="newgame container" *ngIf="!submitted" >
-  <h1>New game</h1>
+<div class="newgame container" *ngIf="!submitted">
+  <div class="title-box text-center"> 
+    <h1>Welcome to Find It!</h1>
+  </div>
+  <div class="description-box text-justify">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consequat vulputate massa, id elementum dui feugiat eu. Nunc tortor augue, porta nec eros quis, sodales tristique nisl. Curabitur sollicitudin eros vel nulla suscipit, id porttitor odio placerat. Sed quis massa hendrerit, commodo leo vel, pharetra ante. Pellentesque maximus nibh at lacinia aliquam. Sed in est eros. Praesent tincidunt commodo ipsum sit amet vehicula. Nunc at molestie quam. Integer varius lacus sit amet leo vestibulum fermentum. 
+      Nunc sed facilisis odio, in vestibulum libero. Pellentesque sodales cursus enim vel aliquam.</p>
+  </div>
   <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
     <div class="form-group">
+      <label for="name">Enter your name:</label>
       <input type="text" class="form-control" id="name" required [(ngModel)]="model.Name" name="name" placeholder="Name" #name="ngModel">
       <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
         Name is required
       </div>
     </div>
- 
-   
-    <button type="submit" class="btn btn-success pull-right" [disabled]="!heroForm.form.valid">Start game</button>
+
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success btn-lg " [disabled]="!heroForm.form.valid">Start game</button>
+    </div>
   </form>
 </div>

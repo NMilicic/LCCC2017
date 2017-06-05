@@ -18,4 +18,5 @@ export class Question {
 export class Game{
     GameId: string;
     Questions:Question[]
+    Username: string
 }
