@@ -70,7 +70,7 @@ export class GoogleMapComponent implements OnInit {
     this.activeQuestionIndex = 1;
   }
   mapClicked($event: MapMouseEvent) {
-    if (this.gameStarted) {
+    if (this.gameStarted && !this.isAnswered) {
       this.markers = [];
       this.markers.push({
         lat: $event.coords.lat,
