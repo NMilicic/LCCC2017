@@ -7,8 +7,8 @@ import { Question } from '../models/question';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-  @Input() private questions: Question[];
-  @Input() private currentQuestion: Question = new Question();
+  @Input() questions: Question[];
+  @Input() currentQuestion: Question = new Question();
   @Input() showQuestionDetails: boolean;
 
   constructor() { }
