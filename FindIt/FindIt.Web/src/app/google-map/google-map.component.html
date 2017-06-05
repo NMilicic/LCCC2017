@@ -4,22 +4,25 @@
     <div class="col-md-3 window-height no-padding sidebar" [hidden]="!gameStarted">
       <app-side-bar [questions]="game.Questions" [currentQuestion]="currentQuestion" [showQuestionDetails]="showQuestionDetails"></app-side-bar>
     </div>
-    <div [ngClass]="{'col-md-12 no-padding' : !gameStarted ,'col-md-9 no-padding': gameStarted}">
+    <div [ngClass]="{'col-md-12' : !gameStarted ,'col-md-9 no-padding': gameStarted}">
       <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered" [showFinishGame]="showFinishGame"></app-confirm-answer>
-      <app-score *ngIf="gameEnded" ></app-score>
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)" [disableDefaultUI] ="true" [streetViewControl]="false">
+      <app-score *ngIf="gameEnded" [totalScore]="totalScore"></app-score>
+      <agm-map [latitude]="lat " [longitude]="lng " [zoom]="zoom " (mapClick)="mapClicked($event)
+        " [disableDefaultUI]="true " [streetViewControl]="false ">
 
-        <div class="marker-container" *ngIf="gameStarted">
-          <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng"
-            [label]="m.label" [markerDraggable]="m.draggable" [openInfoWindow]="m.openInfoWindow" [title]="m.title" (dragEnd)="markerDragEnd(m, $event)">
+        <div class="marker-container " *ngIf="gameStarted ">
+          <agm-marker *ngFor="let m of markers; let i=i ndex " (markerClick)="clickedMarker(m.label, i) " [latitude]="m.lat
+        " [longitude]="m.lng " [label]="m.label " [markerDraggable]="m.draggable " [openInfoWindow]="m.openInfoWindow "
+            [title]="m.title
+        " (dragEnd)="markerDragEnd(m, $event) ">
             <div>
               <p>test</p>
             </div>
           </agm-marker>
         </div>
 
-        <div class="col-md-4">
-          <button type="submit" class="btn btn-success">Start game</button>
+        <div class="col-md-4 ">
+          <button type="submit " class="btn btn-success ">Start game</button>
         </div>
       </agm-map>
     </div>

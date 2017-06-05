@@ -3,7 +3,7 @@ import { AgmMap, AgmMarker } from '@agm/core';
 import { User } from '../models/user'
 import { Marker, MapMouseEvent } from '../models/marker'
 import { Question } from '../models/question'
-import { Game } from '../models/models'
+import { Game, EndGame } from '../models/models'
 import { ShowHideService } from '../show-hide.service'
 import { QuestionService } from '../question.service';
 
@@ -17,7 +17,7 @@ export class GoogleMapComponent implements OnInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
   markers: Marker[] = [];
-  zoom: number = 2;
+  zoom: number = 3;
   gameStarted: boolean;
   gameEnded: boolean;
   showConfirmationDialog: boolean = false;
@@ -29,6 +29,7 @@ export class GoogleMapComponent implements OnInit {
   showQuestionDetails: boolean = false;
   isAnswered: boolean;
   showFinishGame: boolean;
+  totalScore: EndGame = new EndGame();
 
   constructor(private showHideService: ShowHideService, private questionService: QuestionService) {
     showHideService.showConfirmDialog$.subscribe(
@@ -71,14 +72,16 @@ export class GoogleMapComponent implements OnInit {
     this.activeQuestionIndex = 1;
   }
   mapClicked($event: MapMouseEvent) {
-    this.markers = [];
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true,
-      title: ''
-    });
-    this.showHideDialog(true);
+    if (this.gameStarted) {
+      this.markers = [];
+      this.markers.push({
+        lat: $event.coords.lat,
+        lng: $event.coords.lng,
+        draggable: true,
+        title: ''
+      });
+      this.showHideDialog(true);
+    }
   }
 
   markerDragEnd(m, $event) {
@@ -91,6 +94,7 @@ export class GoogleMapComponent implements OnInit {
       .subscribe(
       data => {
         this.game = data
+        this.game.Username = localStorage.getItem('username');
         this.currentQuestion = this.game.Questions[0];
       },
       error => this.errorMessage = <any>error);
@@ -121,7 +125,13 @@ export class GoogleMapComponent implements OnInit {
   }
 
   EvaluateGame() {
-    this.questionService.evaluateGame(this.game)
+     this.questionService.evaluateGame(this.game)
+      .subscribe(
+      data => {
+        this.totalScore.Score = data.Score;
+        this.totalScore.NewAchievements = data.NewAchievements[0];
+      },
+      error => this.errorMessage = <any>error);
     this.gameStarted = false;
     this.gameEnded = true;
   }

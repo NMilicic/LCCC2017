@@ -11,3 +11,11 @@
        -moz-box-shadow: 0 10px 6px -6px #777;
             box-shadow: 0 10px 6px -6px #777;
 }
+
+.top-buffer { margin-top:20px; }
+
+@media only screen and (max-width: 768px) {
+  .confirm-answer{
+    width: 90%;
+  }
+}

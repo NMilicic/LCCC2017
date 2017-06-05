@@ -1,21 +1,21 @@
 <div class="confirm-answer container" *ngIf="isShown">
   <div *ngIf="!isAnswered">
-    <p> Is this yours final answer on question {{currentQuestion.Order}}?</p>
-    <div class="button-group pull-right">
+    <h3 class="text-center"> Is this yours final answer on question {{currentQuestion.Order}}?</h3>
+    <div class="button-group text-center top-buffer ">
       <button class="btn btn-danger" (click)="dismissDialog()">Cancel</button>
       <button class="btn btn-success" (click)=" showCorrectAnswer()">Confirm</button>
     </div>
   </div>
   <div *ngIf="isAnswered && !showFinishGame">
-    <p> Are you ready for next question?</p>
-    <div class="button-group pull-right">
+    <h3 class="text-center"> Are you ready for next question?</h3>
+    <div class="button-group text-center top-buffer ">
       <button class="btn btn-success" (click)=" confirmAnswer()">Next Question</button>
     </div>
   </div>
 
   <div *ngIf="showFinishGame">
-    <p> Nema vise!!</p>
-    <div class="button-group pull-right">
+    <h3 class="text-center"> Nema vise!!</h3>
+    <div class="button-group text-center top-buffer ">
       <button class="btn btn-success" (click)="evaluate()">Submit</button>
     </div>
   </div>

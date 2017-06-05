@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Game } from './models/models';
 
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -29,33 +29,38 @@ export class QuestionService {
     return body || {};
   }
 
+  private extractDataEndGame(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
 
-  evaluateGame(game: Game) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let tmp = {
+
+  evaluateGame(game: Game): Observable<any> {
+    let model = {
       GameId: game.GameId,
-      Latitudes: "",
-      Longitudes: "",
-      Hints1Used: "",
-      Hints2Used: ""
+      Latitudes: [],
+      Longitudes: [],
+      Hints1Used: [],
+      Hints2Used: [],
+      Username: game.Username
     }
     game.Questions.forEach(question => {
-      tmp.Latitudes += question.AnswerLatitude + ","
-      tmp.Longitudes += question.AnswerLongitude + ","
-      tmp.Hints1Used += (question.UsedFirstHint ? "True" : "False") + ","
-      tmp.Hints2Used += (question.UsedSecondHint ? "True" : "False") + ","
+      model.Latitudes.push(question.Latitude)
+      model.Longitudes.push(question.Longitude)
+      model.Hints1Used.push(question.UsedFirstHint ? true : false)
+      model.Hints2Used.push(question.UsedSecondHint ? true : false)
     })
-    tmp.Latitudes = tmp.Latitudes.substring(0, tmp.Latitudes.length - 1);
-    tmp.Longitudes = tmp.Longitudes.substring(0, tmp.Longitudes.length - 1);
-    tmp.Hints1Used = tmp.Hints1Used.substring(0, tmp.Hints1Used.length - 1);
-    tmp.Hints2Used = tmp.Hints2Used.substring(0, tmp.Hints2Used.length - 1);
+
+
+    console.log(model);
     debugger;
-    this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', { tmp }, headers)
-      .map(res => res.json())
-      .subscribe(
-      data => console.log(data),
-      err => this.handleError
-      );
+    return this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', JSON.stringify(model), {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+      .map(this.extractDataEndGame)
+      .catch(this.handleError);
   }
 
 

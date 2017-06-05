@@ -11,3 +11,11 @@
        -moz-box-shadow: 0 10px 6px -6px #777;
             box-shadow: 0 10px 6px -6px #777;
 }
+
+.title-box{
+  margin-bottom: 30px;
+}
+
+.description-box{
+  margin-bottom: 20px;
+}

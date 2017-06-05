@@ -3,7 +3,7 @@
    }
 
 .no-padding{
-     padding: 0;
+     padding: 0px;
   }
 
   .window-height{
@@ -12,6 +12,13 @@
   }
 
   .sidebar{
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-    animation: animateleft 0.4s;
+      -webkit-box-shadow: inset -8px 0 5px -5px rgba(119, 119, 119, 0.57);
+      -moz-box-shadow: inset -8px 0 5px -5px rgba(119, 119, 119, 0.57);
+       box-shadow: inset -8px 0 5px -5px rgba(119, 119, 119, 0.57);
+}
+
+@media only screen and (max-width: 768px) {
+ .window-height{
+   height: auto;
+ }
 }
