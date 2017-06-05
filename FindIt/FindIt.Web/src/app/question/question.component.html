@@ -2,25 +2,27 @@
   Where is this place?
 </h1>
 
-<div class="question-data">
-  <h2 *ngIf="showQuestionDetails" class="text-center">{{currentQuestion.Name}}</h2>
-  <img src="{{currentQuestion.ImageUri}}" class="img-responsive">
-  <div class="button-group top-buffer text-center">
-    <button class="btn btn-success wide-button" [disabled]="currentQuestion.UsedFirstHint || showQuestionDetails" (click)="UsedFirstHint()">Hint 1</button>
-    <button class="btn btn-warning wide-button" [disabled]="!currentQuestion.UsedFirstHint || currentQuestion.UsedSecondHint || showQuestionDetails"
-      (click)=" UsedSecondHint()">Hint 2</button>
-  </div>
-  <div class="top-buffer" *ngIf="currentQuestion.UsedFirstHint">
-    <h3>First hint</h3>
-    {{currentQuestion.FirstHint}}
-  </div>
-  <div class="top-buffer" *ngIf="currentQuestion.UsedSecondHint">
-    <h3>Second hint</h3>
-    {{currentQuestion.SecondHint}}
-  </div>
-  <div class="top-buffer text-justify" *ngIf="showQuestionDetails">
-    <h3>Info</h3>
-    {{currentQuestion.Info}}
+<div *ngFor="let question of questions">
+  <div class="question-data" [hidden]="question != currentQuestion">
+    <h2 *ngIf="showQuestionDetails" class="text-center">{{question.Name}}</h2>
+    <img src="{{question.ImageUri}}" class="img-responsive">
+    <div class="button-group top-buffer text-center">
+      <button class="btn btn-success wide-button" [disabled]="question.UsedFirstHint || showQuestionDetails" (click)="UsedFirstHint()">Hint 1</button>
+      <button class="btn btn-warning wide-button" [disabled]="!question.UsedFirstHint || question.UsedSecondHint || showQuestionDetails"
+        (click)=" UsedSecondHint()">Hint 2</button>
+    </div>
+    <div class="top-buffer" *ngIf="question.UsedFirstHint">
+      <h3>First hint</h3>
+      {{question.FirstHint}}
+    </div>
+    <div class="top-buffer" *ngIf="question.UsedSecondHint">
+      <h3>Second hint</h3>
+      {{question.SecondHint}}
+    </div>
+    <div class="top-buffer text-justify" *ngIf="showQuestionDetails">
+      <h3>Info</h3>
+      {{question.Info}}
+    </div>
   </div>
 </div>
 <!-- <span class="glyphicon " [ngClass]="{'glyphicon-ok-circle' : question.Answered, 'glyphicon-remove-circle' : !question.Answered}"></span> -->

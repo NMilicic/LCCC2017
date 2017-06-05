@@ -3,10 +3,13 @@
     <div class="title-box text-center">
       <h1>{{totalScore.NewAchievements.Name}}</h1>
     </div>
+  <div class="image-box">
+    <img src="{{totalScore.NewAchievements.ImageUri}}" class="img-responsive">
+  </div>
     <div class="description-box text-center">
       <p>{{totalScore.NewAchievements.Description}}</p>
     </div>
-    <h2> Score: {{totalScore.Score}}</h2>
+    <h2> Score: {{totalScore.Score | number : '1.2-2' }}</h2>
     <div class="button-group text-center">
       <button class="btn btn-lg btn-success" (click)="refresh()">New Game</button>
     </div>
