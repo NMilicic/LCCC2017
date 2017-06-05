@@ -12,7 +12,6 @@ namespace FindIt.Repositories
     {
 
         private readonly IGameRepository _gameRepository = new GameRepository();
-        private readonly IUserInfoRepository _userInfoRepository = new UserInfoRepository();
         public const int QuestionPoints = 1000;
         public const double DegreeToKm = 111.12;
 
@@ -31,7 +30,9 @@ namespace FindIt.Repositories
 
             Insert(playedGame);
 
-            var user = _userInfoRepository.GetById(Guid.Parse(userId));
+            var userInfoRepository =  new UserInfoRepository();
+
+            var user = userInfoRepository.GetById(Guid.Parse(userId));
             user.TotalScore += playedGame.Score;
 
             if (user.HighScore < playedGame.Score)
@@ -39,7 +40,7 @@ namespace FindIt.Repositories
                 user.HighScore = playedGame.Score;
             }
 
-            _userInfoRepository.Update(user);
+            userInfoRepository.Update(user);
 
             return playedGame;
         }

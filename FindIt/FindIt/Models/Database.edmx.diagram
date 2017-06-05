@@ -4,16 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fef1512005dc467b8358b92ce602c2cd" Name="Diagram1" ZoomLevel="65">
-        <EntityTypeShape EntityType="guessDBModel.Achievements" Width="1.5" PointX="9.125" PointY="5.375" IsExpanded="true" />
+      <Diagram DiagramId="1df95df7b8ed47eea962bdb0fcb2a556" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="guessDBModel.Achievements" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.Challenge" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="guessDBModel.Games" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="guessDBModel.PlayedGames" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.PlayedGames" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="guessDBModel.Questions" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="guessDBModel.Skills" Width="1.5" PointX="0.625" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="guessDBModel.UserAchievements" Width="1.5" PointX="7" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="guessDBModel.UserInfo" Width="1.5" PointX="5" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="guessDBModel.UserSkills" Width="1.5" PointX="2.875" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.Skills" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.UserAchievements" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.UserInfo" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="guessDBModel.UserSkills" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
         <AssociationConnector Association="guessDBModel.FK_UserAchievements_Achievements" ManuallyRouted="false" />
+        <AssociationConnector Association="guessDBModel.FK_Challenge_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="guessDBModel.FK_Challenge_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="guessDBModel.FK_Challenge_UserInfo1" ManuallyRouted="false" />
         <AssociationConnector Association="guessDBModel.FK_Games_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="guessDBModel.FK_Games_Questions1" ManuallyRouted="false" />
         <AssociationConnector Association="guessDBModel.FK_Games_Questions2" ManuallyRouted="false" />
@@ -29,10 +33,6 @@
         <AssociationConnector Association="guessDBModel.FK_UserSkills_Skills" ManuallyRouted="false" />
         <AssociationConnector Association="guessDBModel.FK_UserAchievements_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="guessDBModel.FK_UserSkills_UserInfo" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="guessDBModel.Challenge" Width="1.5" PointX="8.25" PointY="1.375" />
-        <AssociationConnector Association="guessDBModel.FK_Challenge_Games" />
-        <AssociationConnector Association="guessDBModel.FK_Challenge_UserInfo" />
-        <AssociationConnector Association="guessDBModel.FK_Challenge_UserInfo1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

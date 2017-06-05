@@ -7,30 +7,43 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class Games
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Games()
         {
             this.PlayedGames = new HashSet<PlayedGames>();
-            this.Challenge = new HashSet<Challenge>();
         }
-    
+
+        [DataMember]
         public System.Guid GameId { get; set; }
+        [DataMember]
         public System.Guid Question1Id { get; set; }
+        [DataMember]
         public System.Guid Question2Id { get; set; }
+        [DataMember]
         public System.Guid Question3Id { get; set; }
+        [DataMember]
         public System.Guid Question4Id { get; set; }
+        [DataMember]
         public System.Guid Question5Id { get; set; }
+        [DataMember]
         public System.Guid Question6Id { get; set; }
+        [DataMember]
         public System.Guid Question7Id { get; set; }
+        [DataMember]
         public System.Guid Question8Id { get; set; }
+        [DataMember]
         public System.Guid Question9Id { get; set; }
+        [DataMember]
         public System.Guid Question10Id { get; set; }
     
         public virtual Questions Questions { get; set; }
@@ -45,7 +58,5 @@ namespace FindIt.Models
         public virtual Questions Questions9 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayedGames> PlayedGames { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Challenge> Challenge { get; set; }
     }
 }

@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
@@ -34,9 +34,9 @@ namespace FindIt.Controllers
 
         [HttpGet]
         [Route("test")]
-        public string Test()
+        public async Task<IEnumerable<Challenge>> Test()
         {
-            return this.RequestContext.Principal.Identity.GetUserId();
+            return await (new ChallengeRepository()).GetAll();
         }
 
         [HttpGet]
@@ -84,7 +84,7 @@ namespace FindIt.Controllers
         [HttpGet]
         [Route("pendingchallenges")]
         public async Task<IEnumerable<ChallengeViewModel>> GetPendingChallenges()
-        {
+        { 
             return await _userInfoRepository.GetChallenges(this.RequestContext.Principal.Identity.GetUserId());
         }
 

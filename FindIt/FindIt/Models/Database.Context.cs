@@ -26,6 +26,7 @@ namespace FindIt.Models
         }
     
         public virtual DbSet<Achievements> Achievements { get; set; }
+        public virtual DbSet<Challenge> Challenge { get; set; }
         public virtual DbSet<Games> Games { get; set; }
         public virtual DbSet<PlayedGames> PlayedGames { get; set; }
         public virtual DbSet<Questions> Questions { get; set; }
@@ -33,6 +34,5 @@ namespace FindIt.Models
         public virtual DbSet<UserAchievements> UserAchievements { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<UserSkills> UserSkills { get; set; }
-        public virtual DbSet<Challenge> Challenge { get; set; }
     }
 }

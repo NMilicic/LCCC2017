@@ -7,19 +7,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class PlayedGames
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PlayedGames()
+        {
+            this.Challenge = new HashSet<Challenge>();
+        }
+
+        [DataMember]
         public System.Guid PlayedGameId { get; set; }
+        [DataMember]
         public System.Guid GameId { get; set; }
+        [DataMember]
         public System.Guid UserInfoId { get; set; }
+        [DataMember]
         public System.DateTime DatePlayed { get; set; }
+        [DataMember]
         public double Score { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Challenge> Challenge { get; set; }
         public virtual Games Games { get; set; }
         public virtual UserInfo UserInfo { get; set; }
     }

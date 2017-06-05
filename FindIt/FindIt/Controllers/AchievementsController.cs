@@ -13,7 +13,7 @@ using FindIt.ViewModels.AddViewModels;
 namespace FindIt.Controllers
 {
 
-    [Authorize(Roles = Constants.AdministratorRole)]
+    //[Authorize(Roles = Constants.AdministratorRole)]
     [RoutePrefix("api/achievements")]
     public class AchievementsController : ApiController
     {
