@@ -5,6 +5,7 @@
 <div *ngFor="let question of questions">
   <div class="question-data" [hidden]="question != currentQuestion">
     <h2 *ngIf="showQuestionDetails" class="text-center">{{question.Name}}</h2>
+    <h2 *ngIf="!showQuestionDetails" class="text-center">Question {{currentQuestion.Order}} / {{questions.length}}</h2>
     <img src="{{question.ImageUri}}" class="img-responsive">
     <div class="button-group top-buffer text-center">
       <button class="btn btn-success wide-button" [disabled]="question.UsedFirstHint || showQuestionDetails" (click)="UsedFirstHint()">Hint 1</button>
