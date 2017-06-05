@@ -8,4 +8,9 @@ export class Question {
     Longitude: number;
     Answered: boolean;
     Score: number;
+    Order: number;
+    AnswerLatitude?: number;
+    AnswerLongitude?: number;
+    UsedFirstHint: boolean;
+    UsedSecondHint: boolean;
 }

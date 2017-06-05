@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import {Marker} from './models/marker'
+
 @Injectable()
 export class QuestionService {
   private questionsUrl = 'http://llamasfindit.azurewebsites.net/api/game/newgame';
@@ -19,6 +21,11 @@ export class QuestionService {
 
   private extractData(res: Response) {
     let body = res.json();
+
+
+    body.Questions.forEach((element, index) => {
+      element.Order = index + 1 ;
+    });
     return body.Questions || {};
   }
   private handleError(error: Response | any) {
@@ -32,6 +39,10 @@ export class QuestionService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
+  }
+
+  saveAnswer(marker: Marker){
+    
   }
 
 }

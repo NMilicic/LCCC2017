@@ -5,23 +5,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { GoogleMapModule} from './google-map/google-map.module';
-import { SideBarComponent } from './side-bar/side-bar.component';
-import { QuestionComponent } from './question/question.component';
-
+import { SideBarModule} from './side-bar/side-bar.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SideBarComponent,
-    QuestionComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    GoogleMapModule
+    GoogleMapModule,
+    SideBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent, SideBarComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../user.service'
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question';
@@ -11,20 +11,15 @@ import { Question } from '../models/question';
 })
 export class SideBarComponent implements OnInit {
   UserName: string;
-  questions: Question[];
-  currentQuestion: Question;
+  @Input() questions: Question[];
+  @Input() currentQuestion: Question;
+  @Input() showQuestionDetails: boolean;
   errorMessage: string;
 
   constructor(private userservice: UserService, private questionService: QuestionService) {
     userservice.username.subscribe(model => {
       this.UserName = model.Name;
-      this.questionService.getQuestions()
-        .subscribe(
-        heroes => {
-          this.questions = heroes
-          this.currentQuestion = this.questions[0];
-        },
-        error => this.errorMessage = <any>error);
+
 
     })
   }
