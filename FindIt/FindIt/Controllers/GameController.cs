@@ -42,9 +42,9 @@ namespace FindIt.Controllers
         [Route("submitgame")]
         public async Task<PostGameViewModel> SubmitGameForEvaluation([FromBody] GameAnswersViewModel model)
         {
-            return await _playedGameRepository.CalculateScore(model, 
-                this.RequestContext.Principal.Identity.GetUserId());
-            
+            return await _playedGameRepository.CalculateScore(model, "2ABBCA73-1E06-4F1F-9105-71B97E84451A");
+            //this.RequestContext.Principal.Identity.GetUserId());
+
         }
 
 

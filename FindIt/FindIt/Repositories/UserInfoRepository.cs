@@ -35,7 +35,7 @@ namespace FindIt.Repositories
         public async Task<IEnumerable<Achievements>> GetEarnedAchievements(string userId)
         {
             var userGuid = Guid.Parse(userId);
-            var earned = await _userAchievementsRepository.GetAllWhere(m => m.UserInfoId == userGuid);
+            var earned = await _userAchievementsRepository.GetAllWhere(m => m.UserInfoId == userGuid && m.Achieved);
             var achievements = new List<Achievements>();
 
             foreach (var achievement in earned)
