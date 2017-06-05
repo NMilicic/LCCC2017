@@ -19,7 +19,7 @@ namespace FindIt.Repositories
         public const int QuestionPoints = 1000;
         public const int NoOfQuestions = 10;
         public const double DegreeToKm = 111.12;
-        public const double CostFactor = 0.001;
+        public const double CostFactor = 0.00001;
 
         public async Task<PostGameViewModel> CalculateScore(GameAnswersViewModel answers, string userId)
         {
