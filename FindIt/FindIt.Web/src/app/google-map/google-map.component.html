@@ -2,7 +2,7 @@
   <div class="row">
     <app-start-game (notify)='onNotify($event)'></app-start-game>
     <div class="col-md-3 window-height no-padding" [hidden]="!gameStarted">
-      <app-side-bar [questions]="questions" [currentQuestion]="currentQuestion" [showQuestionDetails]="showQuestionDetails"></app-side-bar>
+      <app-side-bar [questions]="game.Questions" [currentQuestion]="currentQuestion" [showQuestionDetails]="showQuestionDetails"></app-side-bar>
     </div>
     <div [ngClass]="{'col-md-12 no-padding' : !gameStarted ,'col-md-9 no-padding': gameStarted}">
       <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered" [showFinishGame]="showFinishGame"></app-confirm-answer>

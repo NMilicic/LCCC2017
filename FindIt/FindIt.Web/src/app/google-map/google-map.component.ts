@@ -3,6 +3,7 @@ import { AgmMap, AgmMarker } from '@agm/core';
 import { User } from '../models/user'
 import { Marker, MapMouseEvent } from '../models/marker'
 import { Question } from '../models/question'
+import { Game } from '../models/models'
 import { ShowHideService } from '../show-hide.service'
 import { QuestionService } from '../question.service';
 
@@ -19,7 +20,7 @@ export class GoogleMapComponent implements OnInit {
   zoom: number = 2;
   gameStarted: boolean;
   showConfirmationDialog: boolean = false;
-  questions: Question[];
+  game: Game = new Game();
   currentQuestion: Question;
   errorMessage: string;
   activeQuestionIndex: number;
@@ -40,8 +41,8 @@ export class GoogleMapComponent implements OnInit {
         this.isAnswered = false;
         this.showQuestionDetails = false;
         this.markers = [];
-        if (data < this.questions.length) {
-          this.currentQuestion = this.questions[data]
+        if (data < this.game.Questions.length) {
+          this.currentQuestion = this.game.Questions[data]
           this.showHideDialog(false);
 
         }
@@ -57,9 +58,10 @@ export class GoogleMapComponent implements OnInit {
         this.showCorrectAnswer()
       });
 
-      showHideService.evaluate$.subscribe(
+    showHideService.evaluate$.subscribe(
       data => {
-        console.log(this.questions);
+        this.EvaluateGame();
+        console.log(this.game.Questions);
         debugger;
       });
   }
@@ -87,9 +89,9 @@ export class GoogleMapComponent implements OnInit {
     this.gameStarted = true;
     this.questionService.getQuestions()
       .subscribe(
-      heroes => {
-        this.questions = heroes
-        this.currentQuestion = this.questions[0];
+      data => {
+        this.game = data
+        this.currentQuestion = this.game.Questions[0];
       },
       error => this.errorMessage = <any>error);
   }
@@ -118,7 +120,9 @@ export class GoogleMapComponent implements OnInit {
     this.markers[i].openInfoWindow = true;
   }
 
-
+EvaluateGame(){
+this.questionService.evaluateGame(this.game)
+}
 
 }
 

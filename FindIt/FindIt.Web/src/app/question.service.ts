@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Question } from './models/question';
+import { Game } from './models/models';
 
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import {Marker} from './models/marker'
+import { Marker } from './models/marker'
 
 @Injectable()
 export class QuestionService {
   private questionsUrl = 'http://llamasfindit.azurewebsites.net/api/game/newgame';
   constructor(private http: Http) { }
 
-  getQuestions(): Observable<Question[]> {
+  getQuestions(): Observable<Game> {
     return this.http.get(this.questionsUrl)
       .map(this.extractData)
       .catch(this.handleError);
@@ -24,10 +24,41 @@ export class QuestionService {
 
 
     body.Questions.forEach((element, index) => {
-      element.Order = index + 1 ;
+      element.Order = index + 1;
     });
-    return body.Questions || {};
+    return body || {};
   }
+
+
+  evaluateGame(game: Game) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let tmp = {
+      GameId: game.GameId,
+      Latitudes: "",
+      Longitudes: "",
+      Hints1Used: "",
+      Hints2Used: ""
+    }
+    game.Questions.forEach(question => {
+      tmp.Latitudes += question.AnswerLatitude + ","
+      tmp.Longitudes += question.AnswerLongitude + ","
+      tmp.Hints1Used += (question.UsedFirstHint ? "True" : "False") + ","
+      tmp.Hints2Used += (question.UsedSecondHint ? "True" : "False") + ","
+    })
+    tmp.Latitudes = tmp.Latitudes.substring(0, tmp.Latitudes.length - 1);
+    tmp.Longitudes = tmp.Longitudes.substring(0, tmp.Longitudes.length - 1);
+    tmp.Hints1Used = tmp.Hints1Used.substring(0, tmp.Hints1Used.length - 1);
+    tmp.Hints2Used = tmp.Hints2Used.substring(0, tmp.Hints2Used.length - 1);
+    debugger;
+    this.http.post('http://llamasfindit.azurewebsites.net/api/game/submitgame', { tmp }, headers)
+      .map(res => res.json())
+      .subscribe(
+      data => console.log(data),
+      err => this.handleError
+      );
+  }
+
+
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
@@ -41,8 +72,8 @@ export class QuestionService {
     return Observable.throw(errMsg);
   }
 
-  saveAnswer(marker: Marker){
-    
+  saveAnswer(marker: Marker) {
+
   }
 
 }
