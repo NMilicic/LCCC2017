@@ -22,12 +22,20 @@ namespace FindIt.Controllers
         
         private readonly IGameRepository _gameRepository = new GameRepository();
         private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
+        private readonly IChallengeRepository _challengeRepository = new ChallengeRepository();
 
         [HttpGet]
         [Route("newgame")]
         public async Task<NewGameViewModel> StartNewGame()
         {
             return await _gameRepository.CreateNewGame();
+        }
+
+        [HttpGet]
+        [Route("challengegame")]
+        public NewGameViewModel ChallengeGame(string playedGameId)
+        {
+            return _challengeRepository.GetChallengeGame(playedGameId);
         }
 
         [HttpPost]

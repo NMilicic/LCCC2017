@@ -14,13 +14,13 @@ namespace FindIt.Repositories
 
         public static Func<string, string> Challenged =
             x => "Player " + x + " challenged you to a game! Destroy him swiftly!";
-
-        public static Func<string, string> Rejected = x => "Player " + x + " rejected your petty challenge!";
+        public static Func<string, string> Rejected = x => "Player " + x + " rejected your petty challenge! ";
         public static Func<string, string, double, double, string> Accepted = 
             (x, y, a, b) => "Player " + x + " accepted to ride to battle!" 
-            + "And the winner is " + y + ". Score is " + a + "-" + b;
+            + "And the winner is " + y + ", final score is " + a + "-" + b;
 
         private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
+        private readonly IQuestionRepository _questionRepository = new QuestionRepository();
 
         public async Task<IEnumerable<ChallengeViewModel>> GetChallenges(string userId)
         {
@@ -108,6 +108,28 @@ namespace FindIt.Repositories
             }
 
             Insert(response);
+        }
+
+        public NewGameViewModel GetChallengeGame(string playedGameId)
+        {
+            var playedGame = _playedGameRepository.GetById(Guid.Parse(playedGameId));
+            var game = playedGame.Games;
+            var questions = new List<Questions>
+            {
+                _questionRepository.GetById(game.Question1Id),
+                _questionRepository.GetById(game.Question2Id),
+                _questionRepository.GetById(game.Question3Id),
+                _questionRepository.GetById(game.Question4Id),
+                _questionRepository.GetById(game.Question5Id),
+                _questionRepository.GetById(game.Question6Id),
+                _questionRepository.GetById(game.Question7Id),
+                _questionRepository.GetById(game.Question8Id),
+                _questionRepository.GetById(game.Question9Id),
+                _questionRepository.GetById(game.Question10Id)
+            };
+
+
+            return new NewGameViewModel(game.GameId, questions);
         }
     }
 }
