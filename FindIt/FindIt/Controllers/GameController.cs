@@ -40,9 +40,10 @@ namespace FindIt.Controllers
 
         [HttpPost]
         [Route("submitgame")]
-        public async Task<PostGameViewModel> SubmitGameForEvaluation([FromBody] GameViewModel model)
+        public async Task<PostGameViewModel> SubmitGameForEvaluation([FromBody] GameAnswersViewModel model)
         {
-            return await _playedGameRepository.CalculateScore(model.GameId, model.Answers, 
+            var test = model == null;
+            return await _playedGameRepository.CalculateScore(model.GameId, model, 
                 this.RequestContext.Principal.Identity.GetUserId());
             
         }

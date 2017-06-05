@@ -10,5 +10,10 @@ namespace FindIt.ViewModels
     {
         public string GameId { get; set; }
         public GameAnswersViewModel Answers { get; set; }
+
+        public GameViewModel()
+        {
+            
+        }
     }
 }
