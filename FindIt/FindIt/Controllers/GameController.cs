@@ -15,7 +15,6 @@ using Microsoft.AspNet.Identity;
 
 namespace FindIt.Controllers
 {
-    //[EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/game")]
     public class GameController : ApiController
     {

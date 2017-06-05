@@ -22,7 +22,7 @@ namespace FindIt
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
-            //config.EnableCors();
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
