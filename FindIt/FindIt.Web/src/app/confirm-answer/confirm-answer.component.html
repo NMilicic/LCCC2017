@@ -1,22 +1,21 @@
 <div class="confirm-answer container" *ngIf="isShown">
-  <div *ngIf="!isAnswered">
+  <div *ngIf="!isAnswered" class="text-center">
+    <span>Question {{currentQuestion.Order}} / 10 </span>
     <h3 class="text-center"> Is this yours final answer on question {{currentQuestion.Order}}?</h3>
     <div class="button-group text-center top-buffer ">
       <button class="btn btn-danger" (click)="dismissDialog()">Cancel</button>
       <button class="btn btn-success" (click)=" showCorrectAnswer()">Confirm</button>
     </div>
   </div>
-  <div *ngIf="isAnswered && !showFinishGame">
-    <h3 class="text-center"> Are you ready for next question?</h3>
-    <div class="button-group text-center top-buffer ">
-      <button class="btn btn-success" (click)=" confirmAnswer()">Next Question</button>
-    </div>
-  </div>
+  <div *ngIf="isAnswered" class="text-center">
 
-  <div *ngIf="showFinishGame">
-    <h3 class="text-center"> Nema vise!!</h3>
+    <span>Question {{currentQuestion.Order}} / 10 </span>
+    <h3 class="text-center" *ngIf="currentQuestion.Order < 10"> Are you ready for next question?</h3>
+     <h3 class="text-center" *ngIf="currentQuestion.Order == 10"> No more question, just hit Submit and see your's score!</h3>
     <div class="button-group text-center top-buffer ">
-      <button class="btn btn-success" (click)="evaluate()">Submit</button>
+
+      <button class="btn btn-success" *ngIf="currentQuestion.Order < 10" (click)="confirmAnswer()">Next Question</button>
+      <button class="btn btn-success" *ngIf="currentQuestion.Order == 10" (click)="evaluate()">Submit</button>
     </div>
   </div>
 </div>

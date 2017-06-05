@@ -10,9 +10,7 @@ export class ScoreComponent implements OnInit {
 @Input() totalScore: EndGame = new EndGame();
   constructor() { }
 
-  ngOnInit() {
-    this.totalScore.NewAchievements = new NewAchievements();
-  }
+  ngOnInit() {  }
 
   refresh(): void {
     window.location.reload();

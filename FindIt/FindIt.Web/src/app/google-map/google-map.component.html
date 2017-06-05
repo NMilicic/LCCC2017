@@ -5,7 +5,7 @@
       <app-side-bar [questions]="game.Questions" [currentQuestion]="currentQuestion" [showQuestionDetails]="showQuestionDetails"></app-side-bar>
     </div>
     <div [ngClass]="{'col-md-12' : !gameStarted ,'col-md-9 no-padding': gameStarted}">
-      <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered" [showFinishGame]="showFinishGame"></app-confirm-answer>
+      <app-confirm-answer [isShown]="showConfirmationDialog" [currentQuestion]="currentQuestion" [isAnswered]="isAnswered"></app-confirm-answer>
       <app-score *ngIf="gameEnded" [totalScore]="totalScore"></app-score>
       <agm-map [latitude]="lat " [longitude]="lng " [zoom]="zoom " (mapClick)="mapClicked($event)
         " [disableDefaultUI]="true " [streetViewControl]="false ">

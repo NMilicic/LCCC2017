@@ -45,15 +45,12 @@ export class QuestionService {
       Username: game.Username
     }
     game.Questions.forEach(question => {
-      model.Latitudes.push(question.Latitude)
-      model.Longitudes.push(question.Longitude)
+      model.Latitudes.push(question.AnswerLatitude)
+      model.Longitudes.push(question.AnswerLongitude)
       model.Hints1Used.push(question.UsedFirstHint ? true : false)
       model.Hints2Used.push(question.UsedSecondHint ? true : false)
     })
 
-
-    console.log(model);
-    debugger;
     return this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', JSON.stringify(model), {
       headers: new Headers({
         'Content-Type': 'application/json'

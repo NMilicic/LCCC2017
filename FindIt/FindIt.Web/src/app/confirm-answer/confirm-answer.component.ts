@@ -10,7 +10,6 @@ export class ConfirmAnswerComponent implements OnInit {
   @Input() isShown: boolean;
   @Input() isAnswered: boolean;
   @Input() currentQuestion: Question;
-  @Input() showFinishGame: boolean;
 
   constructor(private showHideService: ShowHideService) {
 

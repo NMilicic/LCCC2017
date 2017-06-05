@@ -19,3 +19,9 @@
 .description-box{
   margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+  .score{
+    width: 90%;
+  }
+}

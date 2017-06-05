@@ -28,7 +28,6 @@ export class GoogleMapComponent implements OnInit {
   temp: number;
   showQuestionDetails: boolean = false;
   isAnswered: boolean;
-  showFinishGame: boolean;
   totalScore: EndGame = new EndGame();
 
   constructor(private showHideService: ShowHideService, private questionService: QuestionService) {
@@ -49,7 +48,6 @@ export class GoogleMapComponent implements OnInit {
 
         }
         else {
-          this.showFinishGame = true;
           this.isAnswered = true;
           this.showQuestionDetails = true;
         }
@@ -125,15 +123,16 @@ export class GoogleMapComponent implements OnInit {
   }
 
   EvaluateGame() {
-     this.questionService.evaluateGame(this.game)
+    this.questionService.evaluateGame(this.game)
       .subscribe(
       data => {
         this.totalScore.Score = data.Score;
         this.totalScore.NewAchievements = data.NewAchievements[0];
+        this.gameStarted = false;
+        this.gameEnded = true;
       },
       error => this.errorMessage = <any>error);
-    this.gameStarted = false;
-    this.gameEnded = true;
+
   }
 
 }
