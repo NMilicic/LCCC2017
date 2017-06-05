@@ -10,6 +10,6 @@ namespace FindIt.Repositories.Interfaces
 {
     public interface IPlayedGameRepository : IRepository<PlayedGames, Guid>
     {
-        PlayedGames CalculateScore(string gameId, GameAnswersViewModel answers, string userId);
+        Task<PostGameViewModel> CalculateScore(string gameId, GameAnswersViewModel answers, string userId);
     }
 }

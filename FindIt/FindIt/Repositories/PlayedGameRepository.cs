@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using FindIt.Models;
 using FindIt.Repositories.Interfaces;
@@ -12,10 +13,14 @@ namespace FindIt.Repositories
     {
 
         private readonly IGameRepository _gameRepository = new GameRepository();
+        private readonly IUserAchievementsRepository _userAchievementsRepository = new UserInfoAchievementsRepository();
+        private readonly IAchievementRepository _achievementRepository = new AchievementRepository();
+
         public const int QuestionPoints = 1000;
+        public const int NoOfQuestions = 10;
         public const double DegreeToKm = 111.12;
 
-        public PlayedGames CalculateScore(string gameId, GameAnswersViewModel answers, string userId)
+        public async Task<PostGameViewModel> CalculateScore(string gameId, GameAnswersViewModel answers, string userId)
         {
             var game = _gameRepository.GetById(Guid.Parse(gameId));
 
@@ -42,7 +47,57 @@ namespace FindIt.Repositories
 
             userInfoRepository.Update(user);
 
-            return playedGame;
+            var usersAchievements = await userInfoRepository.GetEarnedAchievements(user.UserInfoId.ToString());
+            var achievements = await GetNewAchievements(usersAchievements, playedGame.Score, user.UserInfoId);
+
+            return new PostGameViewModel()
+            {
+                Score = playedGame.Score,
+                NewAchievements = achievements
+            };
+        }
+
+        private async Task<List<Achievements>> GetNewAchievements(IEnumerable<Achievements> usersAchievements, 
+            double score, Guid userGuid)
+        {
+            var achievements = new List<Achievements>();
+
+            if (score < QuestionPoints * NoOfQuestions * 0.5)
+            {
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan50Id, achievements);
+            }
+
+            if (score >= QuestionPoints * NoOfQuestions * 0.5 && score < QuestionPoints * NoOfQuestions * 0.6)
+            {
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan60Id, achievements);
+            }
+
+            if (score >= QuestionPoints * NoOfQuestions * 0.6 && score < QuestionPoints * NoOfQuestions * 0.8)
+            {
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan80Id, achievements);
+            }
+
+            if (score >= QuestionPoints * NoOfQuestions * 0.8 && score < QuestionPoints * NoOfQuestions * 0.9)
+            {
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan90Id, achievements);
+            }
+
+            if (score >= QuestionPoints * NoOfQuestions * 0.9)
+            {
+                await CheckIfAchievementNew(usersAchievements, userGuid, Constants.LessThan90Id, achievements);
+            }
+
+            return achievements;
+        }
+
+        private async Task CheckIfAchievementNew(IEnumerable<Achievements> usersAchievements, Guid userGuid, 
+            Guid achievementGuid, List<Achievements> achievements)
+        {
+            if (!usersAchievements.Any(m => m.AchievementId == achievementGuid))
+            {
+                await _userAchievementsRepository.SetAchievement(achievementGuid, userGuid);
+                achievements.Add(_achievementRepository.GetById(achievementGuid));
+            }
         }
 
         private static double CalculateScore(Games game, GameAnswersViewModel answers)

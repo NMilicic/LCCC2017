@@ -47,5 +47,14 @@ namespace FindIt.Repositories
             BatchInsert(userAchievements);
         }
 
+        public async Task SetAchievement(Guid achievementGuid, Guid userGuid)
+        {
+            var userAchievement =
+                (await GetAllWhere(m => m.AchievementId == achievementGuid && m.UserInfoId == userGuid)).First();
+
+            userAchievement.Achieved = true;
+
+            Update(userAchievement);
+        }
     }
 }

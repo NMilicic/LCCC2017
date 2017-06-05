@@ -12,5 +12,6 @@ namespace FindIt.Repositories.Interfaces
 
         void AddAchievementsToNewUser(UserInfo user, IEnumerable<Achievements> achievements);
         void AddNewAchievementToUsers(Achievements achievement, IEnumerable<UserInfo> users);
+        Task SetAchievement(Guid achievementGuid, Guid userGuid);
     }
 }

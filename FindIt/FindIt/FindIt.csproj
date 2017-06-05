@@ -322,6 +322,7 @@
     <Compile Include="ViewModels\GameAnswersViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\NewGameViewModel.cs" />
+    <Compile Include="ViewModels\PostGameViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
