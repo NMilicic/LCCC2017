@@ -11,7 +11,6 @@ export class ConfirmAnswerComponent implements OnInit {
   @Input() isAnswered: boolean;
   @Input() currentQuestion: Question;
   @Input() showFinishGame: boolean;
-  @Input() userHasSetMarket: boolean;
 
   constructor(private showHideService: ShowHideService) {
 
