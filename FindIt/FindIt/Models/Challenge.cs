@@ -7,19 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class Challenge
     {
+        [DataMember]
         public System.Guid ChallengeId { get; set; }
+        [DataMember]
         public System.Guid SendingUserId { get; set; }
+        [DataMember]
         public System.Guid ReceivingUserId { get; set; }
+        [DataMember]
         public System.Guid GameId { get; set; }
+        [DataMember]
         public string Message { get; set; }
+        [DataMember]
         public bool Seen { get; set; }
+        [DataMember]
         public bool Response { get; set; }
     
         public virtual PlayedGames PlayedGames { get; set; }

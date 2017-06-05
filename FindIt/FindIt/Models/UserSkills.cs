@@ -7,16 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class UserSkills
     {
+        [DataMember]
         public System.Guid UserSkillId { get; set; }
+        [DataMember]
         public System.Guid UserInfoId { get; set; }
+        [DataMember]
         public System.Guid SkillId { get; set; }
+        [DataMember]
         public bool Activated { get; set; }
     
         public virtual Skills Skills { get; set; }

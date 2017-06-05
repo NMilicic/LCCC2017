@@ -7,11 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace FindIt.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class Games
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,17 +22,28 @@ namespace FindIt.Models
         {
             this.PlayedGames = new HashSet<PlayedGames>();
         }
-    
+
+        [DataMember]
         public System.Guid GameId { get; set; }
+        [DataMember]
         public System.Guid Question1Id { get; set; }
+        [DataMember]
         public System.Guid Question2Id { get; set; }
+        [DataMember]
         public System.Guid Question3Id { get; set; }
+        [DataMember]
         public System.Guid Question4Id { get; set; }
+        [DataMember]
         public System.Guid Question5Id { get; set; }
+        [DataMember]
         public System.Guid Question6Id { get; set; }
+        [DataMember]
         public System.Guid Question7Id { get; set; }
+        [DataMember]
         public System.Guid Question8Id { get; set; }
+        [DataMember]
         public System.Guid Question9Id { get; set; }
+        [DataMember]
         public System.Guid Question10Id { get; set; }
     
         public virtual Questions Questions { get; set; }
