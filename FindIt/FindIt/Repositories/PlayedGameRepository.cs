@@ -19,6 +19,7 @@ namespace FindIt.Repositories
         public const int QuestionPoints = 1000;
         public const int NoOfQuestions = 10;
         public const double DegreeToKm = 111.12;
+        public const double CostFactor = 0.5;
 
         public async Task<PostGameViewModel> CalculateScore(string gameId, GameAnswersViewModel answers, string userId)
         {
@@ -146,7 +147,7 @@ namespace FindIt.Repositories
 
         private static double CostFunction(double x)
         {
-            return 1 / Math.Cosh(4*x);
+            return QuestionPoints / Math.Cosh(CostFactor*x);
         }
 
         private static double DegreeDifferenceToKmDifference(double gameLatitude, double gameLongitude,
