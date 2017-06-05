@@ -16,8 +16,9 @@ namespace FindIt.Repositories
             x => "Player " + x + " challenged you to a game! Destroy him swiftly!";
 
         public static Func<string, string> Rejected = x => "Player " + x + " rejected your petty challenge!";
-        public static Func<string, string, string> Accepted = 
-            (x, y) => "Player " + x + " accepted to ride to battle!" + "And the winner is " + y;
+        public static Func<string, string, double, double, string> Accepted = 
+            (x, y, a, b) => "Player " + x + " accepted to ride to battle!" 
+            + "And the winner is " + y + ". Score is " + a + "-" + b;
 
         private readonly IPlayedGameRepository _playedGameRepository = new PlayedGameRepository();
 
@@ -50,8 +51,8 @@ namespace FindIt.Repositories
             Insert(challenge);
         }
 
-        public async void RespondToChallenge(string challengeId, string challengerId, UserInfo challengee, bool accepted = false,
-            string gameId = null)
+        public void RespondToChallenge(string challengeId, string challengerId, UserInfo challengee, bool accepted = false,
+            string playedGameId = null)
         {
             var challenge = GetById(Guid.Parse(challengeId));
             challenge.Seen = true;
@@ -72,18 +73,17 @@ namespace FindIt.Repositories
             else
             {
                 var challengerGuid = Guid.Parse(challengerId);
-                var challengerGame = (await _playedGameRepository.GetAllWhere(m => m.GameId == challenge.GameId
-                                                                            && challengerGuid == m.UserInfoId)).FirstOrDefault();
-                var challengeeGame = (await _playedGameRepository.GetAllWhere(m => m.GameId == challenge.GameId
-                                                                            && challengerGuid == m.UserInfoId)).FirstOrDefault();
+                var challengerGame = _playedGameRepository.GetById(challenge.GameId);
+                var challengeeGame = _playedGameRepository.GetById(Guid.Parse(playedGameId));
 
                 if (challengeeGame.Score > challengerGame.Score)
                 {
-                    response.Message = Accepted(challengee.Username, challengee.Username);
+                    response.Message = Accepted(challengee.Username, challengee.Username, 
+                        challengeeGame.Score, challengerGame.Score);
                 }
                 else
                 {
-                    response.Message = Accepted(challengee.Username, "you");
+                    response.Message = Accepted(challengee.Username, "you", challengeeGame.Score, challengerGame.Score);
                 }
             }
 
