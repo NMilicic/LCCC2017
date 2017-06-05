@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Game } from './models/models';
 
-import { Http, Response, RequestOptions, Headers, URLSearchParams  } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -29,33 +29,38 @@ export class QuestionService {
     return body || {};
   }
 
+  private extractDataEndGame(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
 
-  evaluateGame(game: Game) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+
+  evaluateGame(game: Game): Observable<any> {
     let model = {
       GameId: game.GameId,
       Latitudes: [],
       Longitudes: [],
       Hints1Used: [],
       Hints2Used: [],
-      Username:game.Username
+      Username: game.Username
     }
     game.Questions.forEach(question => {
       model.Latitudes.push(question.Latitude)
       model.Longitudes.push(question.Longitude)
       model.Hints1Used.push(question.UsedFirstHint ? true : false)
-      model.Hints2Used.push(question.UsedSecondHint? true : false)
+      model.Hints2Used.push(question.UsedSecondHint ? true : false)
     })
-  
 
-console.log(model);
-debugger;
-    this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', { model }, headers)
-      .map(res => res.json())
-      .subscribe(
-      data => console.log(data),
-      err => this.handleError
-      );
+
+    console.log(model);
+    debugger;
+    return this.http.post('https://llamasfindit.azurewebsites.net/api/game/submitgame', JSON.stringify(model), {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+      .map(this.extractDataEndGame)
+      .catch(this.handleError);
   }
 
 

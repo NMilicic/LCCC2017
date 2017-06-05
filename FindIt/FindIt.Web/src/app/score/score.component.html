@@ -1,9 +1,15 @@
 <div class="score container">
   <div class="text-center">
-    <h2> Score: 50000</h2>
+    <div class="title-box text-center">
+      <h1>{{totalScore.NewAchievements.Name}}</h1>
+    </div>
+    <div class="description-box text-center">
+      <p>{{totalScore.NewAchievements.Description}}</p>
+    </div>
+    <h2> Score: {{totalScore.Score}}</h2>
     <div class="button-group text-center">
       <button class="btn btn-lg btn-success" (click)="refresh()">New Game</button>
     </div>
   </div>
-  
+
 </div>

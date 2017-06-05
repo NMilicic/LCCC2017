@@ -15,8 +15,24 @@ export class Question {
     UsedSecondHint: boolean;
 }
 
-export class Game{
+export class Game {
     GameId: string;
-    Questions:Question[]
+    Questions: Question[]
     Username: string
+}
+
+export class EndGame {
+    Score: number;
+    NewAchievements: NewAchievements;
+
+    EndGame(){
+        this.Score= 0;
+        this.NewAchievements = new NewAchievements();
+    }
+}
+
+export class NewAchievements {
+    Description: string;
+    ImageUri: string;
+    Name: string;
 }
