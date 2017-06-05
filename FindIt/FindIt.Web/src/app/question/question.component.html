@@ -1,0 +1,28 @@
+<h1>
+  Where is this place?
+</h1>
+
+<div>
+  <div>
+    <h2 *ngIf="showQuestionDetails">{{currentQuestion.Name}}</h2>
+    <img src="{{currentQuestion.ImageUri}}" class="img-responsive">
+    <div class="button-group top-buffer">
+      <button class="btn btn-success" [disabled]="currentQuestion.UsedFirstHint || showQuestionDetails" (click)="UsedFirstHint()">Hint 1</button>
+      <button class="btn btn-success" [disabled]="!currentQuestion.UsedFirstHint || currentQuestion.UsedSecondHint || showQuestionDetails"
+        (click)=" UsedSecondHint()">Hint 2</button>
+    </div>
+    <div class="top-buffer" *ngIf="currentQuestion.UsedFirstHint">
+      <h3>First hint</h3>
+      {{currentQuestion.FirstHint}}
+    </div>
+    <div class="top-buffer" *ngIf="currentQuestion.UsedSecondHint">
+      <h3>Second hint</h3>
+      {{currentQuestion.SecondHint}}
+    </div>
+    <div class="top-buffer" *ngIf="showQuestionDetails">
+      <h3>Info</h3>
+      {{currentQuestion.Info}}
+    </div>
+  </div>
+</div>
+<!-- <span class="glyphicon " [ngClass]="{'glyphicon-ok-circle' : question.Answered, 'glyphicon-remove-circle' : !question.Answered}"></span> -->
