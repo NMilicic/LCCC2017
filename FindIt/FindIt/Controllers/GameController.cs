@@ -42,8 +42,7 @@ namespace FindIt.Controllers
         [Route("submitgame")]
         public async Task<PostGameViewModel> SubmitGameForEvaluation([FromBody] GameAnswersViewModel model)
         {
-            var test = model == null;
-            return await _playedGameRepository.CalculateScore(model.GameId, model, 
+            return await _playedGameRepository.CalculateScore(model, 
                 this.RequestContext.Principal.Identity.GetUserId());
             
         }

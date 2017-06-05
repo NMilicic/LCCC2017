@@ -19,11 +19,11 @@ namespace FindIt.Repositories
         public const int QuestionPoints = 1000;
         public const int NoOfQuestions = 10;
         public const double DegreeToKm = 111.12;
-        public const double CostFactor = 0.5;
+        public const double CostFactor = 0.001;
 
-        public async Task<PostGameViewModel> CalculateScore(string gameId, GameAnswersViewModel answers, string userId)
+        public async Task<PostGameViewModel> CalculateScore(GameAnswersViewModel answers, string userId)
         {
-            var game = _gameRepository.GetById(Guid.Parse(gameId));
+            var game = _gameRepository.GetById(Guid.Parse(answers.GameId));
 
             var playedGame = new PlayedGames()
             {
@@ -31,7 +31,7 @@ namespace FindIt.Repositories
                 DatePlayed = DateTime.Now,
                 GameId = game.GameId,
                 Score = CalculateScore(game, answers),
-                UserInfoId = Guid.NewGuid()
+                UserInfoId = Guid.Parse(userId)
             };
 
             Insert(playedGame);
@@ -105,35 +105,39 @@ namespace FindIt.Repositories
         {
             var score = 0.0;
 
-            var tempScore = GetTempScore(game.Questions1, answers, 1);
+            var tempScore = GetTempScore(game.Question1Id, answers, 0);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions2, answers, 2);
+            tempScore = GetTempScore(game.Question2Id, answers, 1);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions3, answers, 3);
+            tempScore = GetTempScore(game.Question3Id, answers, 2);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions4, answers, 4);
+            tempScore = GetTempScore(game.Question4Id, answers, 3);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions5, answers, 5);
+            tempScore = GetTempScore(game.Question5Id, answers, 4);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions6, answers, 6);
+            tempScore = GetTempScore(game.Question6Id, answers, 5);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions7, answers, 7);
+            tempScore = GetTempScore(game.Question7Id, answers, 6);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions8, answers, 8);
+            tempScore = GetTempScore(game.Question8Id, answers, 7);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions9, answers, 9);
+            tempScore = GetTempScore(game.Question9Id, answers, 8);
             score += tempScore;
-            tempScore = GetTempScore(game.Questions, answers, 0);
+            tempScore = GetTempScore(game.Question10Id, answers, 9);
             score += tempScore;
 
-            return score * QuestionPoints;
+            return score;
         }
 
-        private static double GetTempScore(Questions question1, GameAnswersViewModel answers, int questionIndex)
+        private static double GetTempScore(Guid questionId, GameAnswersViewModel answers, int questionIndex)
         {
+            var _questionRepository = new QuestionRepository();
+            var question = _questionRepository.GetById(questionId);
+
             var tempScore =
-                CostFunction(DegreeDifferenceToKmDifference(question1.Latitude, question1.Longitude,
+                CostFunction(DegreeDifferenceToKmDifference(question.Latitude, question.Longitude,
                     answers.Latitudes[questionIndex], answers.Longitudes[questionIndex]));
+
             if (answers.Hints2Used[questionIndex])
             {
                 tempScore *= 0.25;
@@ -147,7 +151,7 @@ namespace FindIt.Repositories
 
         private static double CostFunction(double x)
         {
-            return QuestionPoints / Math.Cosh(CostFactor*x);
+            return QuestionPoints / (Math.Cosh(CostFactor*x) + 1);
         }
 
         private static double DegreeDifferenceToKmDifference(double gameLatitude, double gameLongitude,
