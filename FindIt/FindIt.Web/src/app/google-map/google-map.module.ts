@@ -25,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         SideBarModule,
         BrowserAnimationsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCeX9sulgeOKOq6cNfXhGCdQhWZzqjNQXs'
+            apiKey: '{Google Maps API Key}'
         })
     ],
 
